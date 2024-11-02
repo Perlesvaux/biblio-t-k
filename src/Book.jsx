@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react'
 //import './App.css'
 import {renderContents, renderFootnotes, renderIndex} from './lib.js' 
 
+import LoadingScreen from './LoadingScreen.jsx'
+
 export default function Book({ title }) {
   //const [state, setState] = useState( {title:"", rgx:"", chapters:[], footnotes:''})
   const [state, setState] = useState()
@@ -16,7 +18,8 @@ export default function Book({ title }) {
 
   return (<>
   {
-  state && (
+  state
+  ? (
   <main>
     <h1>{state.title}</h1>
     <nav 
@@ -37,10 +40,10 @@ export default function Book({ title }) {
       }}      
     />
   </main>
-  )
+  ) 
 
+  : (<LoadingScreen />)
   }
-
   </>)
 
 }
