@@ -24,9 +24,11 @@ export default function App() {
     
     {currentReading 
       ? (<>
-      <button onClick={()=>{setCurrentReading('')}} > close </button>
-      <Suspense fallback={<LoadingScreen />}>
-      <Book title={currentReading} /> </Suspense> </> )
+        <button onClick={()=>{setCurrentReading('')}} > close </button>
+        <Suspense fallback={<LoadingScreen />}>
+          <Book title={currentReading} />
+        </Suspense> 
+      </>)
       : (<>Menu
 
         { 
