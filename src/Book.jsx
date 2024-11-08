@@ -2,8 +2,10 @@ import { useState, useEffect } from 'react'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 //import './App.css'
+import AsideMenu from './AsideMenu.jsx'
 import './Book.css'
 import hamburger from './assets/hamburger.svg'
+import footprints from './assets/footprints.svg'
 import {renderContents, renderFootnotes, renderIndex} from './lib.js' 
 
 import LoadingScreen from './LoadingScreen.jsx'
@@ -11,7 +13,8 @@ import LoadingScreen from './LoadingScreen.jsx'
 export default function Book({ title }) {
   //const [state, setState] = useState( {title:"", rgx:"", chapters:[], footnotes:''})
   const [state, setState] = useState()
-  const [ asideVisible, setAsideVisible ] = useState(false)
+  const [ indexVisible, setIndexVisible ] = useState(false)
+  const [ footnotesVisible, setFootnotesVisible ] = useState(false)
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}${title}`)
@@ -22,27 +25,14 @@ export default function Book({ title }) {
       //{ asideVisible && ( <aside dangerouslySetInnerHTML={{__html:renderIndex(state)}}/> ) }
   return (<>
 
-    <button 
-      className="display-table-of-contents"
-      style={ asideVisible ? {"left":"-50%" } : {"left":"0" } } 
-      onClick={()=>setAsideVisible( !asideVisible )}
-    >
-      <img src={hamburger} alt="Hamburger menu icon" />
-    </button>
 
   {
   state
   ? (
   <main 
-    onClick={()=>{if (asideVisible) setAsideVisible( false )}}
+    onClick={()=>{if (footnotesVisible) setFootnotesVisible( false );if (indexVisible) setIndexVisible(false)}}
     >
     <h1>{state.title}</h1>
-
-    <aside
-      style={ asideVisible ? {"left":"0" } : {"left":"-50%" } } 
-      dangerouslySetInnerHTML={{__html:renderIndex(state)}}
-      className="sidenav"
-    /> 
 
     <article
       dangerouslySetInnerHTML={{__html:renderContents(state, 
@@ -60,6 +50,28 @@ export default function Book({ title }) {
     />
             
     <div className="bottom" />
+
+
+
+    <AsideMenu 
+      icon={hamburger}
+      visible={indexVisible}
+      swap={()=>setIndexVisible(!indexVisible)}        
+      content={ renderIndex(state) }    
+      position="left"
+    />  
+
+    <AsideMenu 
+      icon={footprints}
+      visible={footnotesVisible}
+      swap={()=>setFootnotesVisible(!footnotesVisible)}        
+      content={ renderIndex(state) }    
+      position="right"
+    />  
+
+
+
+
   </main>
   ) 
 
@@ -68,3 +80,21 @@ export default function Book({ title }) {
   </>)
 
 }
+
+
+
+
+
+    //<button 
+    //  className="display-table-of-contents"
+    //  style={ asideVisible ? {"left":"-50%" } : {"left":"0" } } 
+    //  onClick={()=>setAsideVisible( !asideVisible )}
+    //>
+    //  <img src={hamburger} alt="Hamburger menu icon" />
+    //</button>
+    //
+    //<aside
+    //  style={ asideVisible ? {"left":"0" } : {"left":"-50%" } } 
+    //  dangerouslySetInnerHTML={{__html:renderIndex(state)}}
+    //  className="sidenav"
+    ///> 
