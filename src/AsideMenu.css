@@ -39,6 +39,9 @@
   /*transition: transform 0.5s ease-out;*/
   font-size: 1vh;
 
+  opacity: 0;
+
+
 }
 
 
@@ -65,13 +68,15 @@
 
 .show-left {
   /*left:0;*/
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
   transform:translateX(0);
+  opacity: 1;
 }
 
 button.hide-left{
   /*left:-50%; */
-  transition: transform 0.3s ease-in;
+  /*transition: transform 0.3s ease-in;*/
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
   transform:translateX(var(--button-close));
 }
 
@@ -85,11 +90,13 @@ aside.hide-left{
   /*right:0;*/
   transition: transform 0.3s ease-out;
   transform:translateX(0);
+  opacity: 1;
 }
 
 button.hide-right{
   /*right:-50%;*/
-  transition: transform 0.3s ease-in;
+  /*transition: transform 0.3s ease-in;*/
+  transition: transform 0.3s ease-out, opacity 0.3s ease-in;
   transform:translateX(var(--button-open));
 } 
 aside.hide-right{
@@ -106,8 +113,8 @@ aside.hide-right{
 
 
 aside, button {
---button-close: -45vw;  
---button-open:   45vw;  
+--button-close: -35vw;  
+--button-open:   35vw;  
 --aside-width-close: -50vw;
 --aside-width-open: 50vw;
 }
