@@ -25,6 +25,8 @@ export default function Book({ title }) {
       //{ asideVisible && ( <aside dangerouslySetInnerHTML={{__html:renderIndex(state)}}/> ) }
   return (<>
 
+    {console.log("Book")}
+
 
   {
   state
@@ -44,8 +46,7 @@ export default function Book({ title }) {
       dangerouslySetInnerHTML={{__html:
         `${renderFootnotes(state,
         `<section popover id='footnote-{number}'> <a href="#{number}">{number}</a> {content} </section>`)}
-         ${renderFootnotes(state,
-        `<section id='fn-{number}'> <a href='#{number}'>{number}</a> {content} </section>`)}`
+         `
       }}      
     />
             
@@ -55,17 +56,18 @@ export default function Book({ title }) {
 
     <AsideMenu 
       icon={hamburger}
-      visible={indexVisible}
-      swap={()=>setIndexVisible(!indexVisible)}        
+      //visible={indexVisible}
+      //swap={()=>setIndexVisible(!indexVisible)}        
       content={ renderIndex(state) }    
       position="left"
     />  
 
     <AsideMenu 
       icon={footprints}
-      visible={footnotesVisible}
-      swap={()=>setFootnotesVisible(!footnotesVisible)}        
-      content={ renderIndex(state) }    
+      //visible={indexVisible}
+      //swap={()=>setIndexVisible(!indexVisible)}        
+      content={ renderFootnotes(state,
+        `<section id='fn-{number}'> <a href='#{number}'>{number}</a> {content} </section>`) }    
       position="right"
     />  
 
@@ -82,6 +84,14 @@ export default function Book({ title }) {
 }
 
 
+
+    //<AsideMenu 
+    //  icon={footprints}
+    //  visible={footnotesVisible}
+    //  swap={()=>setFootnotesVisible(!footnotesVisible)}        
+    //  content={ renderIndex(state) }    
+    //  position="right"
+    ///>  
 
 
 

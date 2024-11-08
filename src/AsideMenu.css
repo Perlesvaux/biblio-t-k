@@ -1,13 +1,13 @@
 .sidenav {
-  height: 80%;
-  width: 50%;
+  height: 76vh;
+  width: var(--aside-width-open);
   position: fixed;
   z-index: 1;
   background-color: #111;
   overflow-x: hidden;
   overflow-y: auto;
-  transition: 0.5s;
-  padding-top: 60px;
+  /*transition: transform 0.5s ease-out;*/
+  /*padding-top: 60px;*/
   overscroll-behavior: contain;
 }
 
@@ -30,56 +30,89 @@
 }
 
 .display-table-of-contents {
-  width:50%;
-  height:11%;
+  width:50vw;
+  height:15vh;
   position:fixed;
   z-index:2;
   color: gainsboro;
   background-color: #111;
-  transition: 0.5s;
+  /*transition: transform 0.5s ease-out;*/
   font-size: 1vh;
 
 }
 
-.display-table-of-contents:hover {
-  background-color: gainsboro;
-  color: #111;
-  border: 0;
-}
 
 
+/*offsets*/
 .top-left {
   top: 0;
   left: 0;
 }
-
 .bottom-left {
   bottom:0;
   left:0;
 }
-
 .top-right {
   top: 0;
   right: 0;
 }
-
 .bottom-right {
   bottom:0;
   right:0;
 }
 
+
+
 .show-left {
-  left:0;
+  /*left:0;*/
+  transition: transform 0.3s ease-out;
+  transform:translateX(0);
 }
 
-.hide-left{
-  left:-50%; 
+button.hide-left{
+  /*left:-50%; */
+  transition: transform 0.3s ease-in;
+  transform:translateX(var(--button-close));
+}
+
+aside.hide-left{
+  /*left:-50%; */
+  transition: transform 0.3s ease-in;
+  transform:translateX(var(--aside-width-close));
 }
 
 .show-right{
-  left:50%;
+  /*right:0;*/
+  transition: transform 0.3s ease-out;
+  transform:translateX(0);
+}
+
+button.hide-right{
+  /*right:-50%;*/
+  transition: transform 0.3s ease-in;
+  transform:translateX(var(--button-open));
+} 
+aside.hide-right{
+  /*right:-50%;*/
+  transition: transform 0.3s ease-in;
+  transform:translateX(var(--aside-width-open));
 } 
 
-.hide-right{
-  left:100%
+
+
+.sidenav figure img {
+  max-width:90%;display:block;margin:auto;
 }
+
+
+aside, button {
+--button-close: -45vw;  
+--button-open:   45vw;  
+--aside-width-close: -50vw;
+--aside-width-open: 50vw;
+}
+
+/*aside, button {*/
+/*--aside-width-close: -45vw;  */
+/*--aside-width-open:   45vw;  */
+/*}*/

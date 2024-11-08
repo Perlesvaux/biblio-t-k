@@ -3,6 +3,7 @@ import './AsideMenu.css'
 
 export default function AsideMenu({ icon, visible, swap, content, position }){
 
+  const [visibility, setVisibility] = useState({button:false, aside: false})
   //const [fashion, setFashion] = useState({});
   //
   //useEffect(() => {
@@ -16,16 +17,16 @@ export default function AsideMenu({ icon, visible, swap, content, position }){
 
   const button = "display-table-of-contents " 
     + ( position==="right"
-    ? "bottom-right " + ( visible ? "hide-right" : "show-right" )
-    : "bottom-left "  + ( visible ? "hide-left" : "show-left" ) )
+    ? "bottom-right " + ( visibility.button ? "show-right" : "hide-right"   )
+    : "bottom-left "  + ( visibility.button ? "show-left"  : "hide-left"   ) )
   //const button = (position==="right")
   //  ? "display-table-of-contents bottom-right" 
   //  : "display-table-of-contents bottom-left"
 
   const aside = "sidenav " 
     + ( position==="right"
-    ? "top-right " + ( visible ? "show-right" : "hide-right" )
-    : "top-left " + ( visible ? "show-left" : "hide-left" ) )
+    ? "top-right " + ( visibility.aside ? "show-right" : "hide-right" )
+    : "top-left " + (  visibility.aside ? "show-left"  : "hide-left"   ) )
 
 
   //if (visible){
@@ -47,10 +48,12 @@ export default function AsideMenu({ icon, visible, swap, content, position }){
     //? { button: {"left":"-50%" }, aside:{"left":"0" } }
     //: { button: {"left":"0" }, aside:{"left":"-50%" } }
 
+
   return (<>
+    {console.log("AsideMenu")}
     <button 
       className={ button }
-      onClick={ swap }
+      onClick={ ()=>{setVisibility({...visibility, button:!visibility.button, aside: !visibility.aside })} }
     >
       <img src={icon} alt="menu icon" />
     </button>
