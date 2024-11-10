@@ -4,7 +4,9 @@ export function renderContents(book, strTemplate){
         book.chapters.map((chapter, indx) => (
           `
             <header>
-              <h2 id='chapter-${chapter.ch}'> ${chapter.title} </h2>
+              <h2 id='chapter-${chapter.ch}'> 
+                ${( ()=> !isNaN(chapter.ch)||romans(chapter.ch) ? `${chapter.ch}.` : `` )()} 
+                ${chapter.title} </h2>
             </header>
             <section style='text-align:justify;'> 
               ${

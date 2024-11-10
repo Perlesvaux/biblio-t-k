@@ -8,18 +8,25 @@
   overflow-y: auto;
   /*transition: transform 0.5s ease-out;*/
   /*padding-top: 60px;*/
+  /*text-align: left;*/
   overscroll-behavior: contain;
 }
 
 .sidenav a {
-  padding: 3px;
+  /*padding: 3px;*/
   text-decoration: none;
   font-size: 2vh;
   color: gainsboro;
-  display: block;
-  text-align: left;
+  /*display: block;*/
   /*transition: 0.5s;*/
 }
+
+.sidenav li {
+  text-align: left;
+  transform: scale(0.95);
+}
+
+
 
 .sidenav a span {
   color: gold;
@@ -122,4 +129,51 @@ aside, button {
 /*aside, button {*/
 /*--aside-width-close: -45vw;  */
 /*--aside-width-open:   45vw;  */
+/*}*/
+
+
+
+
+
+
+figcaption {
+  text-align: center;
+}
+
+
+aside section article {
+  /*display: flex;*/
+  transform: scale(0.95);
+  color: azure;
+  text-align: left;
+}
+
+
+
+
+
+
+
+
+
+aside section article:nth-child(even) {
+  background-color: dimgray;
+}
+
+
+/*aside section article:nth-child(even) a {*/
+/*  background-color: grey;*/
+/*}*/
+/**/
+/*aside section article:nth-child(odd)  a {*/
+/*  background-color:dimgray;*/
+/*}*/
+/**/
+/*aside section article a:hover {*/
+/*  background-color: darkslategray;*/
+/*}*/
+/**/
+/**/
+/*aside section article a {*/
+/*  width: 4em;*/
 /*}*/

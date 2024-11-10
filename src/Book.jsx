@@ -6,7 +6,7 @@ import AsideMenu from './AsideMenu.jsx'
 import './Book.css'
 import hamburger from './assets/hamburger.svg'
 import footprints from './assets/footprints.svg'
-import {renderContents, renderFootnotes, renderIndex} from './lib.js' 
+import {renderContents, renderFootnotes, renderIndex, romans} from './lib.js' 
 
 import LoadingScreen from './LoadingScreen.jsx'
 
@@ -45,7 +45,7 @@ export default function Book({ title }) {
     <footer
       dangerouslySetInnerHTML={{__html:
         `${renderFootnotes(state,
-        `<section popover id='footnote-{number}'> <a href="#{number}">{number}</a> {content} </section>`)}
+        `<article popover id='footnote-{number}'> <a href="#{number}">{number}</a> {content} </article>`)}
          `
       }}      
     />
@@ -67,7 +67,7 @@ export default function Book({ title }) {
       //visible={indexVisible}
       //swap={()=>setIndexVisible(!indexVisible)}        
       content={ renderFootnotes(state,
-        `<section id='fn-{number}'> <a href='#{number}'>{number}</a> {content} </section>`) }    
+        `<article id='fn-{number}'> <span><a href='#{number}'><span>{number}</span></a></span> {content} </article>`) }    
       position="right"
     />  
 
