@@ -25,7 +25,7 @@ export default function App() {
     {currentReading 
       ? (<>
         <button onClick={()=>{setCurrentReading('')}} > close </button>
-        <Suspense fallback={<LoadingScreen />}>
+        <Suspense fallback={<LoadingScreen color="green" taste="dashed" />}>
           <Book title={currentReading} />
         </Suspense> 
       </>)
@@ -39,7 +39,7 @@ export default function App() {
               > 
                 {item.title}
               </button>) )
-          : <LoadingScreen />
+          : <LoadingScreen  color="blue" taste="dashed" />
         }
 
 

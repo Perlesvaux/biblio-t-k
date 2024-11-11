@@ -1,32 +1,199 @@
+/*.loader {*/
+/**/
+/*  border: 30px solid #f3f3f3;*/
+/*  border-radius: 50%;*/
+/*  border-top: 30px solid red;*/
+/*  border-right: 30px solid red;*/
+/*  width: 25px;*/
+/*  height: 25px;*/
+/*  -webkit-animation: spin 2s linear infinite;
+/*  animation: spin 2s linear infinite;*/
+/*}*/
+
+/*.loader-inner {*/
+/*  border: 5px solid black;*/
+/*  margin:auto;*/
+/*  display:block;*/
+/*  width: 50%;*/
+/*  height: 50%;*/
+/*  border-radius: 50%;*/
+/*  background-color: white;*/
+/*}*/
+
+
+
+
 .loader {
-
-  border: 30px solid #f3f3f3;
+  --b: 10px;
+  --d: 70px;
+  --c: #f3f3f3;
+  width: var(--d);
+  height: var(--d);
   border-radius: 50%;
-  border-top: 30px solid red;
-  border-right: 30px solid red;
-  width: 25px;
-  height: 25px;
-  -webkit-animation: spin 2s linear infinite; /* Safari */
-  animation: spin 2s linear infinite;
+  border-width:var(--b);
+  border-color:var(--c);
+  border-top-color:DarkGray;
+  border-right-color:Silver ;
+  border-bottom-color:LightGray;
+  border-left-color: Gainsboro;
+  animation: gray var(--animation-duration) linear infinite;
+  -webkit-animation: gray var(--animation-duration) linear infinite; /* Safari */
 }
 
-.loader-inner {
-  border: 5px solid black;
-  margin:auto;
-  display:block;
-  width: 50%;
-  height: 50%;
-  border-radius: 50%;
-  background-color: white;
+/*.gray {*/
+/*}*/
+
+
+.blue {
+  border-top-color: var(--blue);
+  animation: blue var(--animation-duration) linear infinite;
+  -webkit-animation: blue var(--animation-duration) linear infinite; /* Safari */
+  /*border-bottom-color: LightSkyBlue;*/
 }
+
+.red {
+  border-top-color: var(--red);
+  animation: red var(--animation-duration) linear infinite;
+  -webkit-animation: red var(--animation-duration) linear infinite; /* Safari */
+}
+
+.green {
+  border-top-color: var(--green);
+  animation: green var(--animation-duration) linear infinite;
+  -webkit-animation: green var(--animation-duration) linear infinite; /* Safari */
+}
+
+.purple {
+  border-top-color: var(--purple);
+  animation: purple var(--animation-duration) linear infinite;
+  -webkit-animation: purple var(--animation-duration) linear infinite; /* Safari */
+}
+
+.pink {
+  border-top-color: var(--pink);
+  animation: pink var(--animation-duration) linear infinite;
+  -webkit-animation: pink var(--animation-duration) linear infinite; /* Safari */
+}
+
+.yellow {
+  border-top-color: var(--yellow);
+  animation: yellow var(--animation-duration) linear infinite;
+  -webkit-animation: yellow var(--animation-duration) linear infinite; /* Safari */
+}
+
+.dotted { border-style:dotted; }
+.solid  { border-style:solid;  }
+.ridge  { border-style:ridge;  }
+.dashed { border-style:dashed; }
+.double { border-style:double; }
+.groove { border-style:groove; }
+.inset  { border-style:inset;  }
+.outset { border-style:outset; }
+
+
+/*.loader-inner {*/
+/*  border: 5px solid black;*/
+/*  margin:auto;*/
+/*  display:block;*/
+/*  width: 50%;*/
+/*  height: 50%;*/
+/*  border-radius: 50%;*/
+/*  background-color: white;*/
+/*}*/
 
 /* Safari */
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
+@-webkit-keyframes blue {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--blue); }
+  100%  { transform:scale(0.9) rotate(360deg);}
 }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+@keyframes blue {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--blue); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes red {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--red); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes red {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--red); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes green {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--green); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes green {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--green); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes purple {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--purple); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes purple {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--purple); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes pink {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--pink); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes pink {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--pink); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes yellow {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--yellow); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes yellow {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--yellow); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@-webkit-keyframes gray {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--gray); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+@keyframes gray {
+  0%    { transform:scale(0.9) rotate(0deg);}
+  50%   { transform:scale(1.5) rotate(180deg); border-color:var(--gray); }
+  100%  { transform:scale(0.9) rotate(360deg);}
+}
+
+
+:root {
+  --red:LightCoral;
+  --blue:LightSkyBlue;
+  --green:DarkSeaGreen;
+  --purple:Plum;
+  --pink:LightPink;
+  --yellow:SandyBrown;
+  --gray:SlateGray;
+  --animation-duration:3s;
 }
