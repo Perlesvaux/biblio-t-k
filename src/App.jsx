@@ -29,22 +29,23 @@ export default function App() {
           <Book title={currentReading} />
         </Suspense> 
       </>)
-      : (<>Menu
-
+      : (<>
         { 
           state  
-          ? state.map((item, indx) => ( 
-              <button key={indx}  
-                onClick={()=>setCurrentReading(item.url) }
-              > 
-                {item.title}
-              </button>) )
-          : <LoadingScreen  color="blue" taste="dashed" />
+          ? <> Menu  
+
+              {
+                state.map((item, indx) => ( 
+                  <button key={indx}  
+                    onClick={()=>setCurrentReading(item.url) }
+                  > 
+                    {item.title}
+                  </button>) )
+              }
+
+          </>
+          : <LoadingScreen  color="red" taste="dashed" />
         }
-
-
-
-
       </>)
     }
 
