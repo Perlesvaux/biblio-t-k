@@ -26,7 +26,7 @@ export default function App() {
     //const raw = `${elem.title} ${elem.author}`
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
-      ( <button key={indx} onClick={()=>setCurrentReading(elem.url)} > {elem.title} </button> )  )
+      ( <button key={indx} onClick={()=>setCurrentReading(elem.url)} > {elem.title}  < sub >{ elem.author }</ sub > </button> )  )
   }
   
 
@@ -43,10 +43,12 @@ export default function App() {
       : (<>
         { 
           state  
-          ? <div className="book">   
-              <input type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+          ? <>
+            <input className="book-selection" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+            <div className="book">
               { filtered() }
             </div>
+            </>
           : <LoadingScreen  color="red" taste="dashed" />
         }
       </>)

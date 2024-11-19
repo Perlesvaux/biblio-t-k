@@ -33,33 +33,32 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*width: 67vw;*/
+  background-color: lightcoral;
+  /*width: var(--parent-width);*/
+  /*overflow: hidden;*/
 }
-.book input {
+.book-selection {
   font-family: 'Courier New', monospace;
   font-size: large;
-  /*padding: 1vw 3vw 1vw 11vw;*/
   padding: 2vh 1vh 2vh 4em;
+  /*width:var( --child-width );*/
+  /*max-width:60vw;*/
+  min-width:15vw;
   /*width:100%;*/
-  /*width:100%;*/
-  min-width:67vw;
-  /*width:67vw;*/
-  /*width:67vw;*/
   border:1vh solid var(--gray);
   border-radius: 4vh;
-  /*height:5vh;*/
-  /*font-size: 1vh;*/
 
   background-image: var(--closed-book);
   background-position: 1.5em 50%; 
   background-repeat: no-repeat;
   background-size: 30px 30px;
-  /*background-size:5vh  5vw ;*/
+
+  transform:scale(var(--child-scale));
 
 
 
 }
-.book input:focus {
+.book-selection:focus {
   outline: transparent ;
   border-color: var(--green);
   box-shadow: 0 0 1vh #719ECE;
@@ -69,15 +68,33 @@
   font-weight: bolder;
 }
 
+
 .book button {
-  width:100%;
+  width:var( --child-width );
+  transform:scale(var(--child-scale));
 }
+
+.book button sub {
+  background-color: lightcoral;
+  color: black;
+  border-radius: 20px;
+
+}
+
 
 .book {
   --green:SeaGreen ;
   --gray:SlateGray ;
+  /*--parent-width:100%;*/
+  --child-width: 100%;
+  --child-scale: 0.9;
+}
+
+.book-selection {
   --open-book:url('./assets/open_book.svg');
   --closed-book:url('./assets/closed_book.svg');
+  --green:SeaGreen ;
+  --gray:SlateGray ;
 }
 
 
