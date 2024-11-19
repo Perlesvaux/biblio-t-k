@@ -5,22 +5,6 @@
   text-align: center;
 }
 
-
-/*@keyframes logo-spin {*/
-/*  from {*/
-/*    transform: rotate(0deg);*/
-/*  }*/
-/*  to {*/
-/*    transform: rotate(360deg);*/
-/*  }*/
-/*}*/
-
-/*@media (prefers-reduced-motion: no-preference) {*/
-/*  a:nth-of-type(2) .logo {*/
-/*    animation: logo-spin infinite 20s linear;*/
-/*  }*/
-/*}*/
-
 .card {
   padding: 2em;
 }
@@ -33,18 +17,15 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: lightcoral;
-  /*width: var(--parent-width);*/
-  /*overflow: hidden;*/
+  /*background-color: lightcoral;*/
+  transform:scale(var(--scale));
 }
+
 .book-selection {
   font-family: 'Courier New', monospace;
   font-size: large;
   padding: 2vh 1vh 2vh 4em;
-  /*width:var( --child-width );*/
-  /*max-width:60vw;*/
   min-width:15vw;
-  /*width:100%;*/
   border:1vh solid var(--gray);
   border-radius: 4vh;
 
@@ -53,15 +34,13 @@
   background-repeat: no-repeat;
   background-size: 30px 30px;
 
-  transform:scale(var(--child-scale));
-
-
-
+  /*transform:scale(var(--child-scale));*/
 }
+
 .book-selection:focus {
   outline: transparent ;
   border-color: var(--green);
-  box-shadow: 0 0 1vh #719ECE;
+  box-shadow: 0 0 1vh var(--green);
   background-image: var(--open-book);
 
   color: var(--green);
@@ -71,26 +50,29 @@
 
 .book button {
   width:var( --child-width );
-  transform:scale(var(--child-scale));
+  transform:scale(var(--scale));
 }
 
 .book button sub {
   background-color: lightcoral;
   color: black;
-  border-radius: 20px;
+  /*font-size: smaller;*/
+  border-radius: 5px;
+  padding: 2px;
+  /*transform:scale(var(2));*/
 
 }
 
 
-.book {
+.book, .book-selection {
   --green:SeaGreen ;
   --gray:SlateGray ;
   /*--parent-width:100%;*/
   --child-width: 100%;
-  --child-scale: 0.9;
-}
-
-.book-selection {
+  --scale: 0.95;
+/*}*/
+/**/
+/*.book-selection {*/
   --open-book:url('./assets/open_book.svg');
   --closed-book:url('./assets/closed_book.svg');
   --green:SeaGreen ;

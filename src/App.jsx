@@ -26,7 +26,7 @@ export default function App() {
     //const raw = `${elem.title} ${elem.author}`
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
-      ( <button key={indx} onClick={()=>setCurrentReading(elem.url)} > {elem.title}  < sub >{ elem.author }</ sub > </button> )  )
+      ( <button key={indx} onClick={()=>setCurrentReading(elem.url)} > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </button> )  )
   }
   
 
