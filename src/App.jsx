@@ -18,9 +18,20 @@ export default function App() {
     .then(data => setState(data.result))
   }, [])
 
+
+  
+  const [userChoice, setUserChoice] = useState('')
+
+  function filtered(){
+    //const raw = `${elem.title} ${elem.author}`
+    const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
+    return list.map( (elem, indx) => 
+      ( <button key={indx} onClick={()=>setCurrentReading(elem.url)} > {elem.title} </button> )  )
+  }
   
 
   return (<>
+    {console.log(userChoice)}
     
     {currentReading 
       ? (<>
@@ -32,18 +43,10 @@ export default function App() {
       : (<>
         { 
           state  
-          ? <> Menu  
-
-              {
-                state.map((item, indx) => ( 
-                  <button key={indx}  
-                    onClick={()=>setCurrentReading(item.url) }
-                  > 
-                    {item.title}
-                  </button>) )
-              }
-
-          </>
+          ? <div className="book">   
+              <input type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+              { filtered() }
+            </div>
           : <LoadingScreen  color="red" taste="dashed" />
         }
       </>)
@@ -54,6 +57,19 @@ export default function App() {
   </>)
 
 }
+
+              //{
+              //  state.map((item, indx) => ( 
+              //    <button key={indx}  
+              //      onClick={()=>setCurrentReading(item.url) }
+              //    > 
+              //      {item.title}
+              //    </button>) )
+              //}
+
+
+
+
     //<Book />
     //<Book title={'the-little-prince'} />
 
