@@ -21,6 +21,18 @@
   transform:scale(var(--scale));
 }
 
+.book button {
+  width:var( --child-width );
+  transform:scale(var(--scale));
+}
+
+.book button sub {
+  background-color: lightcoral;
+  color: black;
+  border-radius: 5px;
+  padding: 2px;
+}
+
 .book-selection {
   font-family: 'Courier New', monospace;
   font-size: large;
@@ -33,14 +45,12 @@
   background-position: 1.5em 50%; 
   background-repeat: no-repeat;
   background-size: 30px 30px;
-
-  /*transform:scale(var(--child-scale));*/
 }
 
 .book-selection:focus {
   outline: transparent ;
   border-color: var(--green);
-  box-shadow: 0 0 1vh var(--green);
+  box-shadow: 0 0 1.5vh var(--green);
   background-image: var(--open-book);
 
   color: var(--green);
@@ -48,35 +58,26 @@
 }
 
 
-.book button {
-  width:var( --child-width );
-  transform:scale(var(--scale));
-}
 
-.book button sub {
-  background-color: lightcoral;
-  color: black;
-  /*font-size: smaller;*/
-  border-radius: 5px;
-  padding: 2px;
-  /*transform:scale(var(2));*/
-
+.book button:hover,
+.book button:focus
+{
+  filter: invert(0.9);
+  outline: transparent;
+  /*border: 1px solid transparent;*/
+  /*background-color: tomato;*/
 }
 
 
-.book, .book-selection {
+.book,
+.book-selection {
   --green:SeaGreen ;
   --gray:SlateGray ;
-  /*--parent-width:100%;*/
   --child-width: 100%;
   --scale: 0.95;
-/*}*/
-/**/
-/*.book-selection {*/
+
   --open-book:url('./assets/open_book.svg');
   --closed-book:url('./assets/closed_book.svg');
-  --green:SeaGreen ;
-  --gray:SlateGray ;
 }
 
 
