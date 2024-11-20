@@ -73,11 +73,22 @@
 .book-selection {
   --green:SeaGreen ;
   --gray:SlateGray ;
-  --child-width: 100%;
+  --child-width: 90%;
   --scale: 0.95;
 
   --open-book:url('./assets/open_book.svg');
   --closed-book:url('./assets/closed_book.svg');
+}
+
+.navbar {
+  position: sticky;
+  /*position: fixed;*/
+  /*background-color: lightcoral;*/
+  /*display:block;*/
+  top:0;
+  left:0;
+  width: 100%;
+  /*left:50%;*/
 }
 
 
