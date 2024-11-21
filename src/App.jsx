@@ -45,7 +45,7 @@ export default function App() {
         { 
           state  
           ? <nav className="navbar">
-            <input className="book-selection" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+            <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
             <div className="book">
               { filtered() }
             </div>
