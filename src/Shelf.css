@@ -1,0 +1,80 @@
+.book {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*background-color: lightcoral;*/
+  transform:scale(var(--scale));
+}
+
+.book button {
+  width:var( --child-width );
+  transform:scale(var(--scale));
+}
+
+.book button sub {
+  background-color: lightcoral;
+  color: black;
+  border-radius: 5px;
+  padding: 2px;
+}
+
+.textbox {
+  font-family: 'Courier New', monospace;
+  font-size: large;
+  padding: 2vh 1vh 2vh 4em;
+  /*min-width:40vw;*/
+  width:90%;
+  border:1vh solid var(--gray);
+  border-radius: 4vh;
+
+  background-image: var(--closed-book);
+  background-position: 1.5em 50%; 
+  background-repeat: no-repeat;
+  background-size: 30px 30px;
+box-sizing: border-box
+}
+
+.textbox:focus {
+  outline: transparent ;
+  border-color: var(--green);
+  box-shadow: 0 0 1.5vh var(--green);
+  background-image: var(--open-book);
+
+  color: var(--green);
+  font-weight: bolder;
+}
+
+
+
+.book button:hover,
+.book button:focus
+{
+  filter: invert(0.9);
+  outline: transparent;
+  /*border: 1px solid transparent;*/
+  /*background-color: tomato;*/
+}
+
+
+.book,
+.textbox {
+  --green:SeaGreen ;
+  --gray:SlateGray ;
+  --child-width: 100%;
+  --scale: 0.95;
+
+  --open-book:url('./assets/open_book.svg');
+  --closed-book:url('./assets/closed_book.svg');
+}
+
+.navbar {
+  position: fixed;
+  /*position: fixed;*/
+  /*background-color: lightcoral;*/
+  /*display:block;*/
+  top:2vh;
+  left:0;
+  width: 100%;
+  /*left:50%;*/
+}
+
