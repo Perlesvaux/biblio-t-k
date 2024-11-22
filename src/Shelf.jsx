@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from "react-router-dom";
 //import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 //import reactLogo from './assets/react.svg'
@@ -21,13 +22,17 @@ export default function Shelf({ setter }) {
     .then(data => setState(data.result))
   }, [])
 
+  //function filtered(){
+  //  const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
+  //  return list.map( (elem, indx) => 
+  //    ( <button key={indx} onClick={()=>setter(elem.url)} > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </button> )  )
+  //}
+  
   function filtered(){
-    //const raw = `${elem.title} ${elem.author}`
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
-      ( <button key={indx} onClick={()=>setter(elem.url)} > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </button> )  )
+      ( <Link key={indx}  to={ `biblio-t-k/${elem.url}`} > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </Link> )  )
   }
-  
 
   return (<>
     { 

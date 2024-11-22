@@ -1,5 +1,6 @@
 import { useState, Suspense, lazy, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+//import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
@@ -34,45 +35,48 @@ export default function App() {
   
 
   return (<>
-
     <div>
-      <nav>
-        <Link to="/biblio-t-k/">Home</Link>
-        <Link to="/the-little-prince">About</Link>
-      </nav>
-            <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route path="/biblio-t-k/" element={<div> Hola! </div>} />
-        <Route path="/the-little-prince" element={ <Book title={"the-little-prince"} />  } />
-      </Routes>
+      <Shelf />
+      <Suspense fallback={<LoadingScreen  color="red" taste="dashed" />}>
+        <Routes>
+          <Route path="/biblio-t-k/" element={<div> Hola! </div>} />
+          {state.map((elem, indx)=>(<Route key={indx} path={`/biblio-t-k/${elem.url}`} element={<Book title={elem.url} />} />))}
+        </Routes>
       </Suspense>
     </div>
-
-
-
-
-    
-    {currentReading 
-      ? (<>
-        <button onClick={()=>{setCurrentReading('')}} > close </button>
-        <Suspense fallback={<LoadingScreen color="green" taste="dashed" />}>
-          <Book title={currentReading} />
-        </Suspense> 
-      </>)
-      : (<>
-        { 
-          state  
-          ? <Shelf setter={setCurrentReading} />
-          : <LoadingScreen  color="red" taste="dashed" />
-        }
-      </>)
-    }
-
-
-      {console.log(currentReading)}
   </>)
 
 }
+
+
+          //{state.map((elem, indx)=>(<Route key={indx} path={`biblio-t-k/${elem.url}`} element={<Book title={elem.url} />} />))}
+
+
+    //{currentReading 
+    //  ? (<>
+    //    <button onClick={()=>{setCurrentReading('')}} > close </button>
+    //    <Suspense fallback={<LoadingScreen color="green" taste="dashed" />}>
+    //      <Book title={currentReading} />
+    //    </Suspense> 
+    //  </>)
+    //  : (<>
+    //    { 
+    //      state  
+    //      ? <Shelf setter={setCurrentReading} />
+    //      : <LoadingScreen  color="red" taste="dashed" />
+    //    }
+    //  </>)
+    //}
+    //
+    //
+    //  {console.log(currentReading)}
+
+
+
+
+
+
+
 
               //{
               //  state.map((item, indx) => ( 

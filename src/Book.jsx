@@ -20,7 +20,7 @@ export default function Book({ title }) {
     fetch(`${import.meta.env.VITE_API_URL}${title}`)
     .then(res => res.json())
     .then(data => setState(data))
-  }, [])
+  }, [title])
 
       //{ asideVisible && ( <aside dangerouslySetInnerHTML={{__html:renderIndex(state)}}/> ) }
   return (<>
