@@ -74,6 +74,7 @@
 
 .navbar {
   position: fixed;
+  /*position: sticky;*/
   /*position: fixed;*/
   /*background-color: lightcoral;*/
   /*display:block;*/
@@ -81,6 +82,12 @@
   left:0;
   width: 100%;
   /*left:50%;*/
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+
+
+
 }
 
 
@@ -95,3 +102,38 @@
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
+.on-off {
+  position:absolute;
+  background-color: gainsboro;
+  right:1em;
+  top:1em;
+}
+.circular {
+  border-radius: 50%;
+  background-color: Tomato;
+  transform: scale(0.5, 0.7);
+  right:3vw;
+  top:0;
+  /*background-image:url('./assets/x_close.svg');*/
+  /*background-position: 1.5em 50%; */
+  /*background-repeat: no-repeat;*/
+  /*background-size: 30px 30px;*/
+  /*box-sizing: border-box*/
+
+}
+.on-off:hover {
+  filter: invert(1);
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.room{
+  /*display:fixed;*/
+}
+
+

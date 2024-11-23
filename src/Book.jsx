@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 //import './App.css'
 import AsideMenu from './AsideMenu.jsx'
 import './Book.css'
-import hamburger from './assets/hamburger.svg'
+import history from './assets/history.svg'
 import footprints from './assets/footprints.svg'
 import {renderContents, renderFootnotes, renderIndex, romans} from './lib.js' 
 
@@ -55,7 +55,7 @@ export default function Book({ title }) {
 
 
     <AsideMenu 
-      icon={hamburger}
+      icon={history}
       //visible={indexVisible}
       //swap={()=>setIndexVisible(!indexVisible)}        
       content={ renderIndex(state) }    

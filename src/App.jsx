@@ -1,5 +1,5 @@
 import { useState, Suspense, lazy, useEffect } from 'react'
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Link } from "react-router-dom";
 //import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
 //import reactLogo from './assets/react.svg'
@@ -14,7 +14,8 @@ const Book = lazy(()=> import('./Book.jsx')  )
 
 export default function App() {
   const [state, setState] = useState([])
-  const [currentReading, setCurrentReading] = useState('')
+  //const [currentReading, setCurrentReading] = useState('')
+  //const [visible, setVisible] = useState(false)
   
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}books`)
@@ -36,8 +37,9 @@ export default function App() {
 
   return (<>
     {console.log(import.meta.env.BASE_URL)}
+    <Link to={import.meta.env.BASE_URL} onClick={()=>setVisible(true)} > HOME </Link>
     <div>
-      <Shelf />
+      <Shelf  /> 
       <Suspense fallback={<LoadingScreen  color="red" taste="dashed" />}>
         <Routes>
           <Route path={import.meta.env.BASE_URL} element={<div> Hola! </div>} />

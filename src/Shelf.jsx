@@ -5,15 +5,18 @@ import { Link } from "react-router-dom";
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './Shelf.css'
+import x_close from './assets/x_close.svg'
+import hamburger from './assets/hamburger.svg'
 //import Book from './Book.jsx'
 
 //import LoadingScreen from './LoadingScreen.jsx'
 //const Book = lazy(()=> import('./Book.jsx')  )
 //import {renderContents, renderFootnotes, renderIndex} from './lib.js' 
 
-export default function Shelf({ setter }) {
+export default function Shelf() {
   const [state, setState] = useState([])
   const [userChoice, setUserChoice] = useState('')
+  const [visible, setVisible] = useState(true)
   //const [currentReading, setCurrentReading] = useState('')
   
   useEffect(() => {
@@ -31,19 +34,28 @@ export default function Shelf({ setter }) {
   function filtered(){
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
-      ( <Link key={indx}  to={ `${import.meta.env.BASE_URL}${elem.url}`} className="libro" > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </Link> )  )
+       (<Link key={indx}  
+          to={ `${import.meta.env.BASE_URL}${elem.url}`} 
+          className="libro"
+          onClick={ ()=>{setVisible(!visible)}  }
+        >
+          {elem.title} <sub>{elem.author}</sub> <sub>{elem.date}</sub> 
+        </Link> ))
   }
 
   return (<>
-    { 
-       <nav className="navbar">
-       <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
-       <div className="book">
-         { filtered() }
-       </div>
+    <div className="room">
+     <button className={ "on-off" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={hamburger}/> </button>
+       <nav className={ "navbar" + ` ${visible && "hidden"}` }>
+     <button className="on-off circular" onClick={()=>setVisible(!visible) }> <img src={x_close} /> </button>
+         <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+           <div className="book">
+             { filtered() }
+           </div>
        </nav>
-    }      
-  </>)
+    </div>
+
+        </>)
 
 }
 
