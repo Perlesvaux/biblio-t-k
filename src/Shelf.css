@@ -9,6 +9,7 @@
 .book a {
   width:var( --child-width );
   transform:scale(var(--scale));
+  color: white;
 }
 
 /*a {*/
@@ -35,7 +36,7 @@
   background-position: 1.5em 50%; 
   background-repeat: no-repeat;
   background-size: 30px 30px;
-box-sizing: border-box
+  box-sizing: border-box
 }
 
 .textbox:focus {
@@ -56,7 +57,7 @@ box-sizing: border-box
   filter: invert(0.9);
   outline: transparent;
   /*border: 1px solid transparent;*/
-  /*background-color: tomato;*/
+  color: white;
 }
 
 
@@ -83,7 +84,7 @@ box-sizing: border-box
 }
 
 
-a {
+.libro {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;

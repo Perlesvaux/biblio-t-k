@@ -35,12 +35,13 @@ export default function App() {
   
 
   return (<>
+    {console.log(import.meta.env.BASE_URL)}
     <div>
       <Shelf />
       <Suspense fallback={<LoadingScreen  color="red" taste="dashed" />}>
         <Routes>
           <Route path="/biblio-t-k/" element={<div> Hola! </div>} />
-          {state.map((elem, indx)=>(<Route key={indx} path={`/biblio-t-k/${elem.url}`} element={<Book title={elem.url} />} />))}
+          {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
         </Routes>
       </Suspense>
     </div>

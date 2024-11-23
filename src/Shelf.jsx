@@ -31,7 +31,7 @@ export default function Shelf({ setter }) {
   function filtered(){
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
-      ( <Link key={indx}  to={ `biblio-t-k/${elem.url}`} > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </Link> )  )
+      ( <Link key={indx}  to={ `${import.meta.env.BASE_URL}${elem.url}`} className="libro" > {elem.title}  <sub>{ elem.author }</sub> <sub>{elem.date}</sub> </Link> )  )
   }
 
   return (<>
