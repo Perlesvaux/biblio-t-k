@@ -163,16 +163,17 @@
 }
 .buttonlike:hover,
 .buttonlike:focus-visible,
+/*.buttonlike:link:active,*/
+/*.buttonlike:visited:active*/
+/*.buttonlike:link,*/
+/*.buttonlike:visited,*/
 .buttonlike:focus
 {
   filter: sepia(0.7) contrast(200%);
   outline:transparent;
+  box-shadow:transparent;
 }
 
-.buttonlike img {
-  width: 5vh;
-  height: 5vh;
-}
 
 .buttonlike {
   border-radius: 8px;
@@ -182,7 +183,8 @@
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  transition: border-color 0.25s;
+  /*background-color: transparent;*/
+  /*transition: border-color 0.25s;*/
   
   outline:transparent;
 
@@ -191,4 +193,8 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
+.buttonlike img {
+  width: 5vh;
+  height: 5vh;
+}
 
