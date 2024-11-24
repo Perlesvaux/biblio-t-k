@@ -76,12 +76,13 @@
   position: fixed;
   /*position: sticky;*/
   /*position: fixed;*/
-  /*background-color: lightcoral;*/
+  background-color: #242424;
   /*display:block;*/
   top:2vh;
   left:0;
   width: 100%;
   /*left:50%;*/
+
   opacity: 1;
   visibility: visible;
   transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -108,11 +109,23 @@
   background-color: transparent;
   right:1em;
   top:1em;
+
+
+  /*border-radius: 8px;*/
+  /*border: 1px solid transparent;*/
+  /*padding: 0.6em 1.2em;*/
+  /*font-size: 1em;*/
+  /*font-weight: 500;*/
+  /*font-family: inherit;*/
+  /*cursor: pointer;*/
+  /*transition: border-color 0.25s;*/
+
+
 }
 .circular {
   border-radius: 50%;
-  background-color: Tomato;
-  transform: scale(0.5, 0.7);
+  /*background-color: Tomato;*/
+  /*transform: scale(0.5, 0.7);*/
   right:3vw;
   top:0;
   /*background-image:url('./assets/x_close.svg');*/
@@ -122,9 +135,6 @@
   /*box-sizing: border-box*/
 
 }
-.on-off:hover {
-  filter: invert(1);
-}
 
 .hidden {
   opacity: 0;
@@ -132,14 +142,39 @@
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
-
-
 .home {
   position:absolute;
   /*background-color: Tomato;*/
   left:1em;
   top:1em;
 
+  /*border-radius: 8px;*/
+  /*border: 1px solid transparent;*/
+  /*padding: 0.6em 1.2em;*/
+  /*font-size: 1em;*/
+  /*font-weight: 500;*/
+  /*font-family: inherit;*/
+  /*cursor: pointer;*/
+  /*transition: border-color 0.25s;*/
+
+
+
+
+}
+.buttonlike:hover,
+.buttonlike:focus-visible,
+.buttonlike:focus
+{
+  filter: sepia(0.7) contrast(200%);
+  outline:transparent;
+}
+
+.buttonlike img {
+  width: 5vh;
+  height: 5vh;
+}
+
+.buttonlike {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -148,15 +183,12 @@
   font-family: inherit;
   cursor: pointer;
   transition: border-color 0.25s;
+  
+  outline:transparent;
 
-
-
-
-}
-.home:hover,
-.home:focus
-{
-  filter: invert(1);
+  /*opacity: 1;*/
+  /*visibility: visible;*/
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 
