@@ -2,6 +2,7 @@ import { useState, Suspense, lazy, useEffect } from 'react'
 import { Routes, Route, Link } from "react-router-dom";
 //import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
+import home from './assets/home.svg'
 //import reactLogo from './assets/react.svg'
 //import viteLogo from '/vite.svg'
 import './App.css'
@@ -37,8 +38,7 @@ export default function App() {
 
   return (<>
     {console.log(import.meta.env.BASE_URL)}
-    <Link to={import.meta.env.BASE_URL} onClick={()=>setVisible(true)} > HOME </Link>
-    <div>
+    <Link className="home" to={import.meta.env.BASE_URL}> <img src={home} /> </Link>
       <Shelf  /> 
       <Suspense fallback={<LoadingScreen  color="red" taste="dashed" />}>
         <Routes>
@@ -46,7 +46,6 @@ export default function App() {
           {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
         </Routes>
       </Suspense>
-    </div>
   </>)
 
 }

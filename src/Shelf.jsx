@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 //import viteLogo from '/vite.svg'
 import './Shelf.css'
 import x_close from './assets/x_close.svg'
-import hamburger from './assets/hamburger.svg'
+import search from './assets/search.svg'
 //import Book from './Book.jsx'
 
 //import LoadingScreen from './LoadingScreen.jsx'
@@ -44,8 +44,7 @@ export default function Shelf() {
   }
 
   return (<>
-    <div className="room">
-     <button className={ "on-off" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={hamburger}/> </button>
+     <button className={ "on-off" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={search}/> </button>
        <nav className={ "navbar" + ` ${visible && "hidden"}` }>
      <button className="on-off circular" onClick={()=>setVisible(!visible) }> <img src={x_close} /> </button>
          <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
@@ -53,7 +52,6 @@ export default function Shelf() {
              { filtered() }
            </div>
        </nav>
-    </div>
 
         </>)
 
