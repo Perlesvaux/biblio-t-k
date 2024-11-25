@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { Link } from "react-router-dom";
 //import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
@@ -18,13 +18,32 @@ export default function Shelf() {
   const [state, setState] = useState([])
   const [userChoice, setUserChoice] = useState('')
   const [visible, setVisible] = useState(true)
+  const inputRef = useRef(null)
   //const [currentReading, setCurrentReading] = useState('')
   
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}books`)
     .then(res => res.json())
     .then(data => setState(data.result))
+
+    window.addEventListener("keydown", keyboardShortcuts)
+
+    return ()=>{
+      window.removeEventListener("keydown", keyboardShortcuts)
+    }
   }, [])
+
+  useEffect(()=>{
+    if (!visible && inputRef.current) inputRef.current.focus();
+  }, [visible])
+
+
+
+  function keyboardShortcuts(e){
+    if (e.key==='Escape') setVisible(true)
+    if (e.key==='F' && e.shiftKey && e.ctrlKey) setVisible(false)
+  }
+
 
   //function filtered(){
   //  const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
@@ -49,7 +68,7 @@ export default function Shelf() {
   <button className={ "on-off buttonlike" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={search}/> </button>
     <nav className={ "navbar" + ` ${visible && "hidden"}` }>
       <a className="on-off circular buttonlike" onClick={()=>setVisible(!visible) }> <img src={cancel} /> </a>
-      <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} />
+      <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} ref={inputRef}/>
       <div className="book">
         { filtered() }
       </div>
