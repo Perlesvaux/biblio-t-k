@@ -64,6 +64,7 @@ export default function Shelf() {
   }
 
   return (<>
+  <div className={ "background-panel" + ` ${visible && "hidden"}`} />
   <div className="top-panel" />
   <Link className={ "home buttonlike" + ` ${!visible && "hidden"}` } to={import.meta.env.BASE_URL}> <img src={home} /> </Link>
   <a className={ "on-off buttonlike" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={search}/> </a>
