@@ -3,8 +3,8 @@
   flex-direction: column;
   align-items: center;
   transform:scale(var(--scale));
-  height:900px; overflow-y: scroll; overflow-x:hidden;
-
+  height:30vh; overflow-y: auto; overflow-x:hidden;
+  overscroll-behavior-y: contain;
 
 }
 
