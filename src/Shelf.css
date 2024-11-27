@@ -2,8 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /*background-color: lightcoral;*/
   transform:scale(var(--scale));
+  height:900px; overflow-y: scroll; overflow-x:hidden;
+
+
 }
 
 .book a {
@@ -11,10 +13,6 @@
   transform:scale(var(--scale));
   color: white;
 }
-
-/*a {*/
-/*  width:var( --child-width );*/
-/*}*/
 
 .book a sub {
   background-color: lightcoral;
@@ -27,7 +25,6 @@
   font-family: 'Courier New', monospace;
   font-size: large;
   padding: 2vh 1vh 2vh 4em;
-  /*min-width:40vw;*/
   width:90%;
   border:1vh solid var(--gray);
   border-radius: 4vh;
@@ -49,17 +46,13 @@
   font-weight: bolder;
 }
 
-
-
 .book a:hover,
 .book a:focus
 {
   filter: invert(0.9);
   outline: transparent;
-  /*border: 1px solid transparent;*/
   color: white;
 }
-
 
 .book,
 .textbox {
@@ -74,23 +67,15 @@
 
 .navbar {
   position: fixed;
-  /*position: sticky;*/
-  /*position: fixed;*/
   background-color: #242424;
-  /*display:block;*/
   top:2vh;
   left:0;
   width: 100%;
-  /*left:50%;*/
 
   opacity: 1;
   visibility: visible;
   transition: opacity 0.5s ease, visibility 0.5s ease;
-
-
-
 }
-
 
 .libro {
   border-radius: 8px;
@@ -101,7 +86,6 @@
   font-family: inherit;
   background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
 .on-off {
@@ -109,72 +93,18 @@
   background-color: transparent;
   right:1em;
   top:1em;
-
-
-  /*border-radius: 8px;*/
-  /*border: 1px solid transparent;*/
-  /*padding: 0.6em 1.2em;*/
-  /*font-size: 1em;*/
-  /*font-weight: 500;*/
-  /*font-family: inherit;*/
-  /*cursor: pointer;*/
-  /*transition: border-color 0.25s;*/
-
-
 }
 .circular {
   border-radius: 50%;
-  /*background-color: Tomato;*/
-  /*transform: scale(0.5, 0.7);*/
   right:3vw;
   top:0;
-  /*background-image:url('./assets/x_close.svg');*/
-  /*background-position: 1.5em 50%; */
-  /*background-repeat: no-repeat;*/
-  /*background-size: 30px 30px;*/
-  /*box-sizing: border-box*/
-
-}
-
-.hidden {
-  opacity: 0;
-  z-index: -999;
-  /*visibility: hidden;*/
-  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
 .home {
   position:absolute;
-  /*background-color: Tomato;*/
   left:1em;
   top:1em;
-
-  /*border-radius: 8px;*/
-  /*border: 1px solid transparent;*/
-  /*padding: 0.6em 1.2em;*/
-  /*font-size: 1em;*/
-  /*font-weight: 500;*/
-  /*font-family: inherit;*/
-  /*cursor: pointer;*/
-  /*transition: border-color 0.25s;*/
-
-
-
-
 }
-.buttonlike:hover,
-.buttonlike:focus-visible,
-/*.buttonlike:link:active,*/
-/*.buttonlike:visited:active*/
-/*.buttonlike:link,*/
-/*.buttonlike:visited,*/
-.buttonlike:focus
-{
-  filter: sepia(0.7) contrast(200%);
-  outline:transparent;
-  box-shadow:transparent;
-}
-
 
 .buttonlike {
   border-radius: 8px;
@@ -184,13 +114,8 @@
   font-weight: 500;
   font-family: inherit;
   cursor: pointer;
-  /*background-color: transparent;*/
-  /*transition: border-color 0.25s;*/
-  
   outline:transparent;
 
-  /*opacity: 1;*/
-  /*visibility: visible;*/
   transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 
@@ -199,3 +124,17 @@
   height: 5vh;
 }
 
+.buttonlike:hover,
+.buttonlike:focus-visible,
+.buttonlike:focus
+{
+  filter: sepia(0.7) contrast(200%);
+  outline:transparent;
+  box-shadow:transparent;
+}
+
+.hidden {
+  opacity: 0;
+  z-index: -999;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
