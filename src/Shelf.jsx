@@ -64,8 +64,9 @@ export default function Shelf() {
   }
 
   return (<>
+  <div className="top-panel" />
   <Link className={ "home buttonlike" + ` ${!visible && "hidden"}` } to={import.meta.env.BASE_URL}> <img src={home} /> </Link>
-  <button className={ "on-off buttonlike" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={search}/> </button>
+  <a className={ "on-off buttonlike" + ` ${!visible && "hidden"}` }  onClick={()=>setVisible(!visible) }> <img src={search}/> </a>
     <nav className={ "navbar" + ` ${visible && "hidden"}` }>
       <a className="on-off circular buttonlike" onClick={()=>setVisible(!visible) }> <img src={cancel} /> </a>
       <input className="textbox" type="text" onChange={(e)=>setUserChoice(e.target.value) } value={userChoice} ref={inputRef}/>

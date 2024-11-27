@@ -89,10 +89,10 @@
 }
 
 .on-off {
-  position:absolute;
+  position:fixed;
   background-color: transparent;
-  right:1em;
-  top:1em;
+  right:0.5em;
+  top:  0.5em;
 }
 .circular {
   border-radius: 50%;
@@ -101,9 +101,9 @@
 }
 
 .home {
-  position:absolute;
-  left:1em;
-  top:1em;
+  position:fixed;
+  left:0.5em;
+  top: 0.5em;
 }
 
 .buttonlike {
@@ -120,8 +120,8 @@
 }
 
 .buttonlike img {
-  width: 5vh;
-  height: 5vh;
+  width:  3em;
+  height: 3em;
 }
 
 .buttonlike:hover,
@@ -137,4 +137,16 @@
   opacity: 0;
   z-index: -999;
   transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+.top-panel {
+  top: 0;
+  right:0;
+  width:100%;
+  /*background-color: green;*/
+  background-color: #242424;
+  height: 4em;
+  position: fixed;
+  /*display: flex;*/
+  box-sizing: content-box;
 }
