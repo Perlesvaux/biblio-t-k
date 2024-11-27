@@ -74,7 +74,7 @@
 
   opacity: 1;
   visibility: visible;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  /*transition: opacity 0.5s ease, visibility 0.5s ease;*/
 }
 
 .libro {
@@ -116,7 +116,7 @@
   cursor: pointer;
   outline:transparent;
 
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  /*transition: opacity 0.5s ease, visibility 0.5s ease;*/
 }
 
 .buttonlike img {
@@ -136,7 +136,7 @@
 .hidden {
   opacity: 0;
   z-index: -999;
-  transition: opacity 0.5s ease, visibility 0.5s ease;
+  /*transition: opacity 0.5s ease, visibility 0.5s ease;*/
 }
 
 .top-panel {
