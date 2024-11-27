@@ -52,6 +52,7 @@ export default function Shelf() {
   //}
   
   function filtered(){
+    if (userChoice.length < 3) return;
     const list = state.filter( (elem) => `${elem.title} ${elem.author}`.toLowerCase().includes(userChoice.toLowerCase()) ) 
     return list.map( (elem, indx) => 
        (<Link key={indx}  
