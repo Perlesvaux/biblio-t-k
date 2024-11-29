@@ -41,7 +41,7 @@ export default function Shelf() {
 
   function keyboardShortcuts(e){
     if (e.key==='Escape') setVisible(true)
-    if (e.key==='F' && e.shiftKey && e.ctrlKey) setVisible(false)
+    if (e.key==='F' || e.key==='f' && e.shiftKey && e.ctrlKey) setVisible(false)
   }
 
 

@@ -9,7 +9,8 @@ import './App.css'
 
 import LoadingScreen from './LoadingScreen.jsx'
 import Shelf from './Shelf.jsx'
-const Book = lazy(()=> import('./Book.jsx')  )
+const Home = lazy(()=> import('./Home.jsx'))
+const Book = lazy(()=> import('./Book.jsx'))
 //import {renderContents, renderFootnotes, renderIndex} from './lib.js' 
 
 export default function App() {
@@ -35,16 +36,15 @@ export default function App() {
   //}
   
 
-  return (<>
-    {console.log(import.meta.env.BASE_URL)}
-      <Shelf  /> 
-      <Suspense fallback={<LoadingScreen  color="gray" taste="dashed" />}>
-        <Routes>
-          <Route path={import.meta.env.BASE_URL} element={<div> Hola! </div>} />
-          {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
-        </Routes>
-      </Suspense>
-  </>)
+  return (
+    <Suspense fallback={<LoadingScreen  color="gray" taste="dashed" />}>
+      <Shelf /> 
+      <Routes>
+        <Route path={import.meta.env.BASE_URL} element={ <Home booksAvailable={state} /> } />
+        {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
+      </Routes>
+    </Suspense>
+  )
 
 }
 

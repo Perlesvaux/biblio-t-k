@@ -11,6 +11,10 @@
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+
+    /*--primary-text-color-light: Salmon;*/
+
 }
 
 a {
@@ -66,6 +70,15 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  :root {*/
+/*    --bgc:var(--primary-text-color-light);*/
+/**/
+/*  }*/
+/*}*/
+
 
 p {
   font-size: 1.3em;
