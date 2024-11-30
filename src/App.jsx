@@ -36,15 +36,15 @@ export default function App() {
   //}
   
 
-  return (
-    <Suspense fallback={<LoadingScreen  color="gray" taste="dashed" />}>
+  return (<>
       <Shelf /> 
+    <Suspense fallback={<LoadingScreen  color="gray" taste="dashed" />}>
       <Routes>
         <Route path={import.meta.env.BASE_URL} element={ <Home booksAvailable={state} /> } />
         {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
       </Routes>
     </Suspense>
-  )
+  </>)
 
 }
 

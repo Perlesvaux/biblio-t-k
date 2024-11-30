@@ -4,13 +4,28 @@
   font-weight: 400;
 
   color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  /*color: rgba(255, 255, 255, 0.87);*/
+  /*background-color: #242424;*/
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  --white:white;
+  --black:black;
+  --coral:lightcoral;
+  --nero:#1a1a1a;
+  --green:SeaGreen ;
+  --gray:SlateGray ;
+
+  --bg-color-dark:#242424;
+  --txt-color-dark: rgba(255,255,255,0.87);
+
+  --bg-color-light:#ffffff;
+  --txt-color-light:#213547;
+
+
 
 
     /*--primary-text-color-light: Salmon;*/
@@ -60,17 +75,28 @@ button:focus-visible {
 
 @media (prefers-color-scheme: light) {
   :root {
-    color: #213547;
-    background-color: #ffffff;
+    color: var(--txt-color-light);
+    background-color: var(--bg-color-light);
+    --txt-color:var(--txt-color-light);
+    --bg-color:var(--bg-color-light);
   }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+  /*a:hover {*/
+  /*  color: #747bff;*/
+  /*}*/
+  /*button {*/
+  /*  background-color: #f9f9f9;*/
+  /*}*/
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: var(--txt-color-dark);
+    background-color: var(--bg-color-dark);
+    --txt-color:var(--txt-color-dark);
+    --bg-color:var(--bg-color-dark);
+  }
+
+}
 
 /*@media (prefers-color-scheme: dark) {*/
 /*  :root {*/
