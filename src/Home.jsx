@@ -15,18 +15,20 @@ export default function Home({ booksAvailable, waitScreen }) {
   
 
 
-  return (<> Hola!  
+  return (<>  
 
+    <div className="book">
     {
 
     booksAvailable.map((book, indx) => (<Link 
       key={indx} 
       to={`${import.meta.env.BASE_URL}${book.url}`} 
+      className="libro"
     >
       {book.title} <sub>{book.author}</sub> <sub>{book.date}</sub> 
     </Link>))
   }
-
+    </div>
   
   </>)
   
