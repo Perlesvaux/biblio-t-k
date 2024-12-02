@@ -40,7 +40,7 @@ export default function App() {
       <Shelf /> 
     <Suspense fallback={<LoadingScreen  color="gray" taste="dashed" />}>
       <Routes>
-        <Route path={import.meta.env.BASE_URL} element={ <Home booksAvailable={state} /> } />
+        <Route path={import.meta.env.BASE_URL} element={ <Home />  } />
         {state.map((elem, indx)=>(<Route key={indx} path={`${import.meta.env.BASE_URL}${elem.url}`} element={<Book title={elem.url} />} />))}
       </Routes>
     </Suspense>
