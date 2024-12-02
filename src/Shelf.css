@@ -65,14 +65,12 @@
 
 .navbar {
   position: fixed;
-  /*background-color: #242424;*/
   top:2vh;
   left:0;
   width: 100%;
 
   opacity: 1;
   visibility: visible;
-  /*transition: opacity 0.5s ease, visibility 0.5s ease;*/
 }
 
 .libro {
@@ -113,8 +111,6 @@
   font-family: inherit;
   cursor: pointer;
   outline:transparent;
-
-  /*transition: opacity 0.5s ease, visibility 0.5s ease;*/
 }
 
 .buttonlike img {
@@ -133,27 +129,21 @@
 
 .hidden {
   opacity: 0;
-  /*z-index: -999;*/
   visibility: hidden;
-  /*transition: opacity 1s ease, visibility 1s ease-in;*/
 }
 
 .top-panel {
   top: 0;
   right:0;
   width:100%;
-  /*background-color: green;*/
   background-color: var(--bg-color);
   height: 4em;
   position: fixed;
-  /*display: flex;*/
   box-sizing: content-box;
 }
 
 .background-panel {
-  /*background-color:green;*/
   background-color:var(--bg-color);
-  /*filter:opacity(0.9) blur(5px);*/
   height: 37vh;
   position:fixed;
   top:0;

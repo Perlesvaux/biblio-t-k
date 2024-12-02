@@ -1,4 +1,3 @@
-//import { useState, useEffect } from 'react'
 import './LoadingScreen.css'
 
 export default function LoadingScreen({ color, taste}){
