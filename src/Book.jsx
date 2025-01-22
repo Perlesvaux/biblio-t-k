@@ -8,19 +8,49 @@ import './Book.css'
 
 export default function Book({ title }) {
 
-  const [state, setState] = useState()
+  const [ state, setState ] = useState()
   const [ indexVisible, setIndexVisible ] = useState(false)
   const [ footnotesVisible, setFootnotesVisible ] = useState(false)
+  const [ locally, setLocally ] = useState(()=>{
+    const saved = localStorage.getItem('_library')
+    return saved ? JSON.parse(saved) : []
+  })
 
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}${title}`)
-    .then(res => res.json())
-    .then(data => setState(data))
+    
+    if (Object.keys(locally).map(k => k).includes(title)){
+      console.log(`${title} is already in! =D`)
+      setState(locally[title])
+      return
+    }
+
+    console.log("this happens the first time only")
+      fetch(`${import.meta.env.VITE_API_URL}${title}`)
+        .then(res => res.json())
+        .then(data => setState(data))
+      //.then(()=> localStorage.setItem('_library', JSON.stringify( [...locally, {[title]:state }  ] ) ) )
+    
+
+
 
     return () => {
       setState(null);
   	};
   }, [title])
+
+
+
+  useEffect(()=>{
+    localStorage.setItem('_library', JSON.stringify( locally ))
+
+    //if (navigator.onLine)
+    //{
+
+      
+      //}
+  }, [locally])
+
+
 
   return (<>
 
@@ -33,6 +63,7 @@ export default function Book({ title }) {
     onClick={()=>{if (footnotesVisible) setFootnotesVisible( false );if (indexVisible) setIndexVisible(false)}}
     >
     <h1>{state.title}</h1>
+            <button onClick={()=>{setLocally({...locally, [title]:state   })}}>okay!!!!</button>
 
     <article
       dangerouslySetInnerHTML={{__html:renderContents(state, 
