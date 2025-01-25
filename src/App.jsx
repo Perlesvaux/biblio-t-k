@@ -5,35 +5,52 @@ import Shelf from './Shelf.jsx'
 const Home = lazy(()=> import('./Home.jsx'))
 const Book = lazy(()=> import('./Book.jsx'))
 import './App.css'
+import { useLocalStorage } from './custom.js'
 
 
 // Custom hook for localStorage
-function useLocalStorage(key, initialValue) {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : initialValue;
-    } catch (error) {
-      console.error('Error reading from localStorage:', error);
-      return initialValue;
-    }
-  });
+//function useLocalStorage(key, initialValue) {
+//  const [storedValue, setStoredValue] = useState(() => {
+//    try {
+//      const item = localStorage.getItem(key);
+//      return item ? JSON.parse(item) : initialValue;
+//    } catch (error) {
+//      console.error('Error reading from localStorage:', error);
+//      return initialValue;
+//    }
+//  });
+//
+//  const setValue = (value) => {
+//    try {
+//      setStoredValue(value);
+//      localStorage.setItem(key, JSON.stringify(value));
+//    } catch (error) {
+//      console.error('Error writing to localStorage:', error);
+//    }
+//  };
+//
+//  return [storedValue, setValue];
+//}
 
-  const setValue = (value) => {
-    try {
-      setStoredValue(value);
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error('Error writing to localStorage:', error);
-    }
-  };
 
-  return [storedValue, setValue];
-}
+//function useLS(key, initialValue){
+//  const [value, setValue] = useState(()=>{
+//    const item = localStorage.getItem(key);
+//    return item ? JSON.parse(item) : initialValue;
+//  })
+//
+//  useEffect(()=>{
+//    localStorage.setItem(key, JSON.stringify(value))
+//  },
+//    [key, value])
+//
+//  return[value, setValue]
+//}
 
 
 
 export default function App() {
+  //const [books, setBooks] = useLocalStorage('_available', []);
   const [books, setBooks] = useLocalStorage('_available', []);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -66,7 +83,8 @@ export default function App() {
     };
 
     fetchBooks();
-  }, [books, setBooks]); // Add setBooks to dependency array
+  //}, [books, setBooks]); // Add setBooks to dependency array
+  }, []); // Add setBooks to dependency array
 
   if (loading) {
     return <div>Loading books...</div>;

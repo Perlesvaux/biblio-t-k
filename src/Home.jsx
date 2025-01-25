@@ -1,41 +1,61 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react'
 import LoadingScreen from "./LoadingScreen.jsx"
+import { useLocalStorage } from './custom.js'
 
 export default function Home() {
 
-  const [booksAvailable, setBooksAvailable] = useState()
-  const [locally, setLocally] = useState(()=>{
-    const saved = localStorage.getItem('_available')
-    return saved ? JSON.parse(saved) : []
-  })
+  //const [booksAvailable, setBooksAvailable] = useState()
+  const [booksAvailable, setBooksAvailable] = useLocalStorage('_available', [])
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  //const [locally, setLocally] = useState(()=>{
+  //  const saved = localStorage.getItem('_available')
+  //  return saved ? JSON.parse(saved) : []
+  //})
+  //const [books, setBooks] = useLocalStorage('_available', [])
 
   useEffect(() => {
-    console.log('inside HOME useEffect', locally)
-    if (Array.isArray(locally) && locally.length>0) { 
-      console.log('HOME has these in store for you',  locally, locally.length)
-      setBooksAvailable(locally)
+    if (booksAvailable.length>0) { 
+      console.log('HOME has these in store for you',  booksAvailable, booksAvailable.length)
+      setLoading(false)
       return
     }
 
+    async function fetchData(){
+      setLoading(true)
+      setError(null)
+      try {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
+        if (!response.ok) throw new Error('Failed to fetch books!')
+        const data = await response.json()
+        setBooksAvailable(data.result)
+      } catch (error) {
+        console.error('Error fetching books:', error);
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    fetch(`${import.meta.env.VITE_API_URL}books`)
-      .then(res => res.json())
-      .then(data => { 
-        setBooksAvailable(data.result) 
-        setLocally(data.result)
-      })
+    fetchData()
+
+    //fetch(`${import.meta.env.VITE_API_URL}books`)
+    //  .then(res => res.json())
+    //  .then(data => { 
+    //    setBooksAvailable(data.result) 
+    //  })
   }, [])
 
-  useEffect(()=>{
-    localStorage.setItem('_available', JSON.stringify(locally))
-  }
-    , [locally])
+  //useEffect(()=>{
+  //  localStorage.setItem('_available', JSON.stringify(locally))
+  //}
+  //  , [locally])
 
-  return (<>  
-  {
-    booksAvailable 
-      ? <div className="book">
+  if (loading) return <LoadingScreen color="red" taste="dashed"/>
+
+  if (error) return <div> Maybe you are offline {error} </div>
+
+  return (<div className="book">
           {
             booksAvailable.map((book, indx) => (<Link 
               key={indx} 
@@ -45,8 +65,5 @@ export default function Home() {
             {book.title} <sub>{book.author}</sub> <sub>{book.date}</sub> 
             </Link>))
           }
-        </div>
-      : <LoadingScreen color="red" taste="dashed"/>
-  }
-  </>)
+          </div>)
 }
