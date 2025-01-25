@@ -13,7 +13,7 @@ export default function Book({ title }) {
   const [ footnotesVisible, setFootnotesVisible ] = useState(false)
   const [ locally, setLocally ] = useState(()=>{
     const saved = localStorage.getItem('_library')
-    return saved ? JSON.parse(saved) : []
+    return saved ? JSON.parse(saved) : {}
   })
 
   useEffect(() => {
@@ -27,15 +27,19 @@ export default function Book({ title }) {
     console.log("this happens the first time only")
       fetch(`${import.meta.env.VITE_API_URL}${title}`)
         .then(res => res.json())
-        .then(data => setState(data))
+        .then(data => { 
+          setState(data) 
+          setLocally({...locally, [title]:data   }) 
+      })
+        //.then(() => setLocally({...locally, [title]:state   }))
       //.then(()=> localStorage.setItem('_library', JSON.stringify( [...locally, {[title]:state }  ] ) ) )
     
 
-
-
     return () => {
+      console.log("inside cleanup")
       setState(null);
-  	};
+  	}
+
   }, [title])
 
 
@@ -63,7 +67,9 @@ export default function Book({ title }) {
     onClick={()=>{if (footnotesVisible) setFootnotesVisible( false );if (indexVisible) setIndexVisible(false)}}
     >
     <h1>{state.title}</h1>
-            <button onClick={()=>{setLocally({...locally, [title]:state   })}}>okay!!!!</button>
+            {
+              /*<button onClick={()=>{setLocally({...locally, [title]:state   })}}>okay!!!!</button>*/
+            }
 
     <article
       dangerouslySetInnerHTML={{__html:renderContents(state, 
