@@ -28,7 +28,7 @@ VitePWA({
               'sizes': '192x192',
               'type': 'image/png'
             }],
-        start_url: '/bibilioteca-de-don-pelayo/',
+        start_url: '/biblio-t-k/',
         screenshots: [
         {
           src: 'screenshot-narrow.png',
@@ -45,6 +45,7 @@ VitePWA({
           label: 'Wide'
         }
         ],
+        display_override: ["window-controls-overlay"]
       },
       workbox: {
         runtimeCaching:[
