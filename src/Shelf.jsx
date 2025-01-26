@@ -4,17 +4,30 @@ import cancel from './assets/cancel.svg'
 import search from './assets/search.svg'
 import home from './assets/home.svg'
 import './Shelf.css'
+import { useLocalStorage } from './custom.js'
+
 
 export default function Shelf() {
-  const [state, setState] = useState([])
+  //const [state, setState] = useState([])
+  const [state, setState] = useLocalStorage('_available',[])
   const [userChoice, setUserChoice] = useState('')
   const [visible, setVisible] = useState(true)
   const inputRef = useRef(null)
+
+  async function fetchData(){
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
+      const data = await response.json()
+      setState(data.result)
+      
+    } catch (error) {
+      console.error(error)
+    }
+  }
   
   useEffect(() => {
-    fetch(`${import.meta.env.VITE_API_URL}books`)
-    .then(res => res.json())
-    .then(data => setState(data.result))
+
+    if(!state.length>0) fetchData()
 
     window.addEventListener("keydown", keyboardShortcuts)
 
