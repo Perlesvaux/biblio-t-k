@@ -31,9 +31,8 @@ export default function Shelf() {
 
     window.addEventListener("keydown", keyboardShortcuts)
 
-    return ()=>{
-      window.removeEventListener("keydown", keyboardShortcuts)
-    }
+    return ()=> window.removeEventListener("keydown", keyboardShortcuts)
+    
   }, [])
 
   useEffect(()=>{
