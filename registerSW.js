@@ -1,1 +1,1 @@
-if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/bibilioteca-de-don-pelayo/sw.js', { scope: '/bibilioteca-de-don-pelayo/' })})}
+if('serviceWorker' in navigator) {window.addEventListener('load', () => {navigator.serviceWorker.register('/biblio-t-k/sw.js', { scope: '/biblio-t-k/' })})}
