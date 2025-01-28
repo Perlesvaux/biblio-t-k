@@ -5,82 +5,73 @@ import Shelf from './Shelf.jsx'
 const Home = lazy(()=> import('./Home.jsx'))
 const Book = lazy(()=> import('./Book.jsx'))
 import './App.css'
-import { useLocalStorage } from './custom.js'
-
-
-// Custom hook for localStorage
-//function useLocalStorage(key, initialValue) {
-//  const [storedValue, setStoredValue] = useState(() => {
-//    try {
-//      const item = localStorage.getItem(key);
-//      return item ? JSON.parse(item) : initialValue;
-//    } catch (error) {
-//      console.error('Error reading from localStorage:', error);
-//      return initialValue;
-//    }
-//  });
-//
-//  const setValue = (value) => {
-//    try {
-//      setStoredValue(value);
-//      localStorage.setItem(key, JSON.stringify(value));
-//    } catch (error) {
-//      console.error('Error writing to localStorage:', error);
-//    }
-//  };
-//
-//  return [storedValue, setValue];
-//}
-
-
-//function useLS(key, initialValue){
-//  const [value, setValue] = useState(()=>{
-//    const item = localStorage.getItem(key);
-//    return item ? JSON.parse(item) : initialValue;
-//  })
-//
-//  useEffect(()=>{
-//    localStorage.setItem(key, JSON.stringify(value))
-//  },
-//    [key, value])
-//
-//  return[value, setValue]
-//}
-
-
+//import { useLocalStorage } from './custom.js'
+import { getFromDB, saveToDB } from './custom.js'
 
 export default function App() {
   //const [books, setBooks] = useLocalStorage('_available', []);
-  const [books, setBooks] = useLocalStorage('_available', []);
+  //const [books, setBooks] = useLocalStorage('_available', []);
+  const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    // Skip fetch if books are already cached
-    if (books.length > 0) {
-      console.log('Books already fetched!', books);
-      return;
+  const fetchBooks = async() =>{
+
+
+    try {
+      // try to get books from IndexedDB
+      const cachedBooks = await getFromDB('booksDB', 'books', 'books-list')
+      if (cachedBooks) {
+        setBooks(cachedBooks.data)
+      } else {
+      // fetch books from the APO
+        const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
+        const data = await response.json()
+        setBooks(data.result)
+
+      // Save the fetched data to IndexedDB
+        await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
+      }
+      
+    } catch (error) {
+      console.error('Error fetching books', error)
+      
     }
 
-    // Fetch books from API
-    const fetchBooks = async () => {
-      setLoading(true);
-      setError(null);
 
-      try {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch books');
-        }
-        const data = await response.json();
-        setBooks(data.result); // Update state and localStorage
-      } catch (err) {
-        console.error('Error fetching books:', err);
-        setError(err.message);
-      } finally {
-        setLoading(false);
-      }
-    };
+
+
+
+  }
+
+
+
+  useEffect(() => {
+    // Skip fetch if books are already cached
+    //if (books.length > 0) {
+    //  console.log('Books already fetched!', books);
+    //  return;
+    //}
+
+    // Fetch books from API
+    //const fetchBooks = async () => {
+    //  setLoading(true);
+    //  setError(null);
+    //
+    //  try {
+    //    const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
+    //    if (!response.ok) {
+    //      throw new Error('Failed to fetch books');
+    //    }
+    //    const data = await response.json();
+    //    setBooks(data.result); // Update state and localStorage
+    //  } catch (err) {
+    //    console.error('Error fetching books:', err);
+    //    setError(err.message);
+    //  } finally {
+    //    setLoading(false);
+    //  }
+    //};
 
     fetchBooks();
   //}, [books, setBooks]); // Add setBooks to dependency array
@@ -93,50 +84,6 @@ export default function App() {
   if (error) {
     return <div>Error: {error}</div>;
   }
-
-
-  //const [state, setState] = useState([])
-  //const [locally, setLocally] = useState(()=>{
-  //  const saved = localStorage.getItem('_available')
-  //  return saved ? JSON.parse(saved) : []
-  //})
-  //
-  //useEffect(() => {
-  //
-  //  if (Array.isArray(locally) && locally.length>0) { 
-  //    console.log('Available books already fetched! =D',  locally, locally.length)
-  //    setState(locally)
-  //    return
-  //  }
-  //
-  //  console.log('should only run the first time', locally, locally.length)
-  //  fetch(`${import.meta.env.VITE_API_URL}books`)
-  //  .then(res => res.json())
-  //  .then(data => {
-  //  //console.log(data.result)
-  //    setState(data.result)
-  //    setLocally(data.result)
-  //    })
-  //
-  //  //return ()=> setState(null)
-  //}, [])
-  //
-  //useEffect(()=>{
-  //  localStorage.setItem('_available', JSON.stringify(locally))
-  //
-  //}, [locally])
-
-
-  //useEffect(()=>{
-  //
-  //  //if (Array.isArray(locally) && !locally.lenght) { 
-  //  //  console.log('Available books already fetched! =D')
-  //  //  setState(locally)
-  //  //  console.log(locally)
-  //  //  return
-  //  //}
-  //
-  //}, [locally])
 
   return (
   <>
