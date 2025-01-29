@@ -5,31 +5,48 @@ import footprints from './assets/footprints.svg'
 import LoadingScreen from './LoadingScreen.jsx'
 import AsideMenu from './AsideMenu.jsx'
 import './Book.css'
-import { useLocalStorage } from './custom.js'
+//import { useLocalStorage } from './custom.js'
+import { getFromDB, saveToDB } from './custom.js'
 
 export default function Book({ title }) {
 
-  const [ state, setState ] = useLocalStorage('_library', {})
+  //const [ state, setState ] = useLocalStorage('_library', {})
+  const [ book, setBook ] = useState({})
   const [ loading, setLoading ] = useState(true)
   const [ error, setError ] = useState(null)
   //const [ indexVisible, setIndexVisible ] = useState(false)
   //const [ footnotesVisible, setFootnotesVisible ] = useState(false)
-  const book = state[title]
-
+  //const book = state[title]
+  //const book = state
   const fetchData = useCallback( async()=>{
     setLoading(true)
     setError(null)
 
     try {
-      if (!Object.keys(state).map(k => k).includes(title)) 
-      {
+      const cachedBooks = await getFromDB('booksDB', 'books', title)
+      if (cachedBooks) {
+        console.log('from cached! at Book.jsx', cachedBooks.data)
+        setBook(cachedBooks.data)
+      } else {
         const response = await fetch(`${import.meta.env.VITE_API_URL}${title}`)
-        if (!response.ok) throw new Error('unable to fetch data =(')
-        const data = await response.json()
+        console.log(response)
+        const data =  await response.json()
         console.log(data)
-        setState({...state, [title]:data})
+        setBook(data)
+        
+        await saveToDB('booksDB', 'books', {id:title, data: data})
 
       }
+
+      //if (!Object.keys(state).map(k => k).includes(title)) 
+      //{
+      //  const response = await fetch(`${import.meta.env.VITE_API_URL}${title}`)
+      //  if (!response.ok) throw new Error('unable to fetch data =(')
+      //  const data = await response.json()
+      //  console.log(data)
+      //  setState({...state, [title]:data})
+      //
+      //}
       
     } catch (error) {
       console.error(error)
@@ -40,7 +57,7 @@ export default function Book({ title }) {
       setLoading(false)
 
     }
-  }, [title, state, setState])
+  }, [title])
 
   useEffect(() => {
       fetchData()
@@ -50,7 +67,7 @@ export default function Book({ title }) {
   if (error instanceof TypeError) return <div> Oh, you're off the grid. Please go back <strong>On-line</strong> (<i>{error.message}</i>) </div>
   if (error) return <div> (<i>{error.message}</i>) </div>
   if (loading) return <LoadingScreen color="red" taste="dashed" />
-  if (!book) return <LoadingScreen color="blue" taste="dashed" />
+  if (!book) return <LoadingScreen color="blue" taste="dashed"> {console.log(book)} </LoadingScreen>
 
 
   return ( 

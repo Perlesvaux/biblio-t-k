@@ -4,30 +4,56 @@ import cancel from './assets/cancel.svg'
 import search from './assets/search.svg'
 import home from './assets/home.svg'
 import './Shelf.css'
-import { useLocalStorage } from './custom.js'
+//import { useLocalStorage } from './custom.js'
+import { getFromDB, saveToDB } from './custom.js'
 
 
 export default function Shelf() {
-  //const [state, setState] = useState([])
-  const [state, setState] = useLocalStorage('_available',[])
+  const [state, setState] = useState([])
+  //const [state, setState] = useLocalStorage('_available',[])
   const [userChoice, setUserChoice] = useState('')
   const [visible, setVisible] = useState(true)
   const inputRef = useRef(null)
 
-  async function fetchData(){
+  //async function fetchData(){
+  //  try {
+  //    const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
+  //    const data = await response.json()
+  //    setState(data.result)
+  //
+  //  } catch (error) {
+  //    console.error(error)
+  //  }
+  //}
+  const fetchBooks = async() =>{
+
+
     try {
-      const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
-      const data = await response.json()
-      setState(data.result)
+      // try to get books from IndexedDB
+      const cachedBooks = await getFromDB('booksDB', 'books', 'books-list')
+      if (cachedBooks) {
+        setState(cachedBooks.data)
+      } else {
+      // fetch books from the APO
+        const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
+        const data = await response.json()
+        setState(data.result)
+
+      // Save the fetched data to IndexedDB
+        await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
+      }
       
     } catch (error) {
-      console.error(error)
+      console.error('Error fetching books', error)
+      
     }
+
   }
   
   useEffect(() => {
 
-    if(!state.length>0) fetchData()
+    //if(!state.length>0) fetchData()
+    fetchBooks()
 
     window.addEventListener("keydown", keyboardShortcuts)
 
