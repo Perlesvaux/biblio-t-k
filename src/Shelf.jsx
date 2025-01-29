@@ -5,7 +5,8 @@ import search from './assets/search.svg'
 import home from './assets/home.svg'
 import './Shelf.css'
 //import { useLocalStorage } from './custom.js'
-import { getFromDB, saveToDB } from './custom.js'
+//import { getFromDB, saveToDB } from './custom.js'
+import { getFromDB, saveToDB } from './lib.js'
 
 
 export default function Shelf() {
@@ -37,10 +38,12 @@ export default function Shelf() {
       // fetch books from the APO
         const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
         const data = await response.json()
-        setState(data.result)
+        setState(data)
+        //setState(data.result)
 
       // Save the fetched data to IndexedDB
-        await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
+        await saveToDB('booksDB', 'books',{ id:'books-list', data:data })
+        //await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
       }
       
     } catch (error) {

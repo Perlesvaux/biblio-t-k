@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react'
 import LoadingScreen from "./LoadingScreen.jsx"
 //import { useLocalStorage } from './custom.js'
-import { getFromDB, saveToDB } from './custom.js'
+import { getFromDB, saveToDB } from './lib.js'
+//import { getFromDB, saveToDB } from './custom.js'
 
 export default function Home() {
 
@@ -27,9 +28,11 @@ export default function Home() {
       } else {
         const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
         const data = await response.json()
-        setBooksAvailable(data.result)
+        //setBooksAvailable(data.result)
+        setBooksAvailable(data)
 
-        await saveToDB('booksDB', 'books', { id:'books-list', data:data.result })
+        await saveToDB('booksDB', 'books', { id:'books-list', data:data })
+        //await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
       }
     } catch (error) {
       console.error('Error fetching books at Home.jsx:', error)

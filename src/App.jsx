@@ -6,7 +6,8 @@ const Home = lazy(()=> import('./Home.jsx'))
 const Book = lazy(()=> import('./Book.jsx'))
 import './App.css'
 //import { useLocalStorage } from './custom.js'
-import { getFromDB, saveToDB } from './custom.js'
+//import { getFromDB, saveToDB } from './custom.js'
+import { getFromDB, saveToDB } from './lib.js'
 
 export default function App() {
   //const [books, setBooks] = useLocalStorage('_available', []);
@@ -27,10 +28,12 @@ export default function App() {
       // fetch books from the APO
         const response = await fetch(`${import.meta.env.VITE_API_URL}books`);
         const data = await response.json()
-        setBooks(data.result)
+        setBooks(data)
+        //setBooks(data.result)
 
       // Save the fetched data to IndexedDB
-        await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
+        await saveToDB('booksDB', 'books',{ id:'books-list', data:data })
+        //await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
       }
       
     } catch (error) {
