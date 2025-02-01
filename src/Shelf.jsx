@@ -6,11 +6,13 @@ import home from './assets/home.svg'
 import './Shelf.css'
 //import { useLocalStorage } from './custom.js'
 //import { getFromDB, saveToDB } from './custom.js'
-import { getFromDB, saveToDB } from './lib.js'
+//import { getFromDB, saveToDB } from './lib.js'
+import { useIDB } from './lib.js'
 
 
 export default function Shelf() {
-  const [state, setState] = useState([])
+  const [state, error, loading] = useIDB('books', [])
+  //const [state, setState] = useState([])
   //const [state, setState] = useLocalStorage('_available',[])
   const [userChoice, setUserChoice] = useState('')
   const [visible, setVisible] = useState(true)
@@ -56,7 +58,7 @@ export default function Shelf() {
   useEffect(() => {
 
     //if(!state.length>0) fetchData()
-    fetchBooks()
+    //fetchBooks()
 
     window.addEventListener("keydown", keyboardShortcuts)
 

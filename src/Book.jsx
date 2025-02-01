@@ -6,14 +6,16 @@ import LoadingScreen from './LoadingScreen.jsx'
 import AsideMenu from './AsideMenu.jsx'
 import './Book.css'
 //import { useLocalStorage } from './custom.js'
-import { getFromDB, saveToDB } from './custom.js'
+//import { getFromDB, saveToDB } from './custom.js'
+import { useIDB } from './lib.js'
 
 export default function Book({ title }) {
 
   //const [ state, setState ] = useLocalStorage('_library', {})
-  const [ book, setBook ] = useState({})
-  const [ loading, setLoading ] = useState(true)
-  const [ error, setError ] = useState(null)
+  const [ book, error, loading ] = useIDB(title, {})
+  //const [ book, setBook ] = useState({})
+  //const [ loading, setLoading ] = useState(true)
+  //const [ error, setError ] = useState(null)
   //const [ indexVisible, setIndexVisible ] = useState(false)
   //const [ footnotesVisible, setFootnotesVisible ] = useState(false)
   //const book = state[title]
@@ -59,9 +61,9 @@ export default function Book({ title }) {
     }
   }, [title])
 
-  useEffect(() => {
-      fetchData()
-  }, [fetchData])
+  //useEffect(() => {
+  //    fetchData()
+  //}, [fetchData])
 
 
   if (error instanceof TypeError) return <div> Oh, you're off the grid. Please go back <strong>On-line</strong> (<i>{error.message}</i>) </div>

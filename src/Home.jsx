@@ -2,16 +2,18 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from 'react'
 import LoadingScreen from "./LoadingScreen.jsx"
 //import { useLocalStorage } from './custom.js'
-import { getFromDB, saveToDB } from './lib.js'
+//import { getFromDB, saveToDB } from './lib.js'
 //import { getFromDB, saveToDB } from './custom.js'
+import { useIDB } from './lib.js'
 
 export default function Home() {
 
-  const [booksAvailable, setBooksAvailable] = useState([])
+  const [booksAvailable, error, loading] = useIDB('books', [])
+  //const [booksAvailable, setBooksAvailable] = useState([])
   //const [booksAvailable, setBooksAvailable] = useState()
   //const [booksAvailable, setBooksAvailable] = useLocalStorage('_available', [])
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  //const [loading, setLoading] = useState(true);
+  //const [error, setError] = useState(null);
   //const [locally, setLocally] = useState(()=>{
   //  const saved = localStorage.getItem('_available')
   //  return saved ? JSON.parse(saved) : []
@@ -19,32 +21,32 @@ export default function Home() {
   //const [books, setBooks] = useLocalStorage('_available', [])
 
 
-  const fetchBooks = async() =>{
-    try {
-      const cachedBooks = await getFromDB('booksDB', 'books', 'books-list')
-      if (cachedBooks) {
-        setBooksAvailable(cachedBooks.data)
-        console.log(cachedBooks.data)
-      } else {
-        const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
-        const data = await response.json()
-        //setBooksAvailable(data.result)
-        setBooksAvailable(data)
+  //const fetchBooks = async() =>{
+  //  try {
+  //    const cachedBooks = await getFromDB('booksDB', 'books', 'books-list')
+  //    if (cachedBooks) {
+  //      setBooksAvailable(cachedBooks.data)
+  //      console.log(cachedBooks.data)
+  //    } else {
+  //      const response = await fetch(`${import.meta.env.VITE_API_URL}books`)
+  //      const data = await response.json()
+  //      //setBooksAvailable(data.result)
+  //      setBooksAvailable(data)
+  //
+  //      await saveToDB('booksDB', 'books', { id:'books-list', data:data })
+  //      //await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
+  //    }
+  //  } catch (error) {
+  //    console.error('Error fetching books at Home.jsx:', error)
+  //    setError(error)
+  //
+  //  } finally {
+  //    setLoading(false)
+  //  }
+  //}
 
-        await saveToDB('booksDB', 'books', { id:'books-list', data:data })
-        //await saveToDB('booksDB', 'books',{ id:'books-list', data:data.result })
-      }
-    } catch (error) {
-      console.error('Error fetching books at Home.jsx:', error)
-      setError(error)
-      
-    } finally {
-      setLoading(false)
-    }
-  }
 
-
-  useEffect(() => {
+  //useEffect(() => {
     //if (booksAvailable.length>0) { 
     //  console.log('HOME has these in store for you',  booksAvailable, booksAvailable.length)
     //  setLoading(false)
@@ -68,13 +70,13 @@ export default function Home() {
     //
     //fetchData()
 
-    fetchBooks()
+    //fetchBooks()
     //fetch(`${import.meta.env.VITE_API_URL}books`)
     //  .then(res => res.json())
     //  .then(data => { 
     //    setBooksAvailable(data.result) 
     //  })
-  }, [])
+  //}, [])
 
   //useEffect(()=>{
   //  localStorage.setItem('_available', JSON.stringify(locally))

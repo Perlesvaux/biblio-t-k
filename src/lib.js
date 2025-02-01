@@ -118,22 +118,6 @@ export function useLocalStorage(key, initialState){
 }
 
 
-
-//const openDB = (dbName, storeName, version = 1) => {
-//  return new Promise((resolve, reject) => {
-//    const request = indexedDB.open(dbName, version);
-//
-//    request.onupgradeneeded = (event) => {
-//      const db = event.target.result;
-//      if (!db.objectStoreNames.contains(storeName)) {
-//        db.createObjectStore(storeName, { keyPath: 'id' });
-//      }
-//    };
-//
-//    request.onsuccess = (event) => resolve(event.target.result);
-//    request.onerror = (event) => reject(event.target.error);
-//  });
-//};
 const openDB = (dbName, storeName, version=1) =>{
   return new Promise((resolve, reject)=>{
     // opens the database with the given dbName & version (Defaults to 1)
@@ -163,19 +147,6 @@ const openDB = (dbName, storeName, version=1) =>{
 }
 
 
-//
-//const getFromDB = async (dbName, storeName, id) => {
-//  const db = await openDB(dbName, storeName);
-//  return new Promise((resolve, reject) => {
-//    const transaction = db.transaction(storeName, 'readonly');
-//    const store = transaction.objectStore(storeName);
-//    const request = store.get(id);
-//
-//    request.onsuccess = () => resolve(request.result);
-//    request.onerror = () => reject(request.error);
-//  });
-//};
-
 export const getFromDB = async (dbName, storeName, id) =>{
   // opens database and ensures the object store exists
   const db = await openDB(dbName, storeName);
@@ -196,20 +167,6 @@ export const getFromDB = async (dbName, storeName, id) =>{
   });
 }
 
-
-//
-//const saveToDB = async (dbName, storeName, data) => {
-//  const db = await openDB(dbName, storeName);
-//  return new Promise((resolve, reject) => {
-//    const transaction = db.transaction(storeName, 'readwrite');
-//    const store = transaction.objectStore(storeName);
-//    const request = store.put(data);
-//
-//    request.onsuccess = () => resolve();
-//    request.onerror = () => reject(request.error);
-//  });
-//};
-
 export const saveToDB = async (dbName, storeName, data) => {
   // opens database. Ensures the object store exists
   const db = await openDB(dbName, storeName);
@@ -225,4 +182,43 @@ export const saveToDB = async (dbName, storeName, data) => {
     request.onsuccess = () => resolve()
     request.onerror = () => reject(data.error)
   })
+}
+
+
+export const fetching =  async (endpoint, setData, setError, setLoading, ) => {
+  try {
+    const cached = await getFromDB('booksDB', 'books', endpoint)
+    if (cached) {
+      setData(cached.data)
+    } else {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`);
+      const data = await response.json()
+      console.log(data)
+      setData(data)
+
+      await saveToDB('booksDB', 'books', {id:endpoint, data: data})
+
+    }
+  } catch (error) {
+    console.error('Error fetching books:', error)
+    setError(error)
+
+  } finally {
+    setLoading(false)
+  }
+
+}
+
+export function useIDB(endpoint, initialState){
+  const [state, setState] = useState(initialState)
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(true)
+
+
+  useEffect(()=>{
+    fetching(endpoint, setState, setError, setLoading)
+
+  }, [endpoint])
+
+  return [state, error, loading]
 }
