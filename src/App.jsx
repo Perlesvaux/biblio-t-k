@@ -1,4 +1,4 @@
-import { useState, Suspense, lazy, useEffect } from 'react'
+import { Suspense, lazy } from 'react'
 import { Routes, Route } from "react-router-dom";
 import LoadingScreen from './LoadingScreen.jsx'
 import Shelf from './Shelf.jsx'

@@ -47,11 +47,6 @@ VitePWA({
         ],
         display_override: ["window-controls-overlay"]
       },
-      workbox: {
-        runtimeCaching:[
-          { urlPattern:/assets/, handler:'NetworkFirst' },
-        ]
-      },
 
     })],
   

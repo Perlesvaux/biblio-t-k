@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from 'react'
 import LoadingScreen from "./LoadingScreen.jsx"
 import { useIDB } from './lib.js'
 
