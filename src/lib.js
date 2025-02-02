@@ -189,6 +189,7 @@ export const fetching =  async (endpoint, setData, setError, setLoading, ) => {
   try {
     const cached = await getFromDB('booksDB', 'books', endpoint)
     if (cached) {
+      console.log(cached.data)
       setData(cached.data)
     } else {
       const response = await fetch(`${import.meta.env.VITE_API_URL}${endpoint}`);
@@ -209,16 +210,19 @@ export const fetching =  async (endpoint, setData, setError, setLoading, ) => {
 
 }
 
+import { useCallback } from 'react'
+
 export function useIDB(endpoint, initialState){
   const [state, setState] = useState(initialState)
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
 
+  const fetchBooks = useCallback(fetching, [endpoint])
 
   useEffect(()=>{
-    fetching(endpoint, setState, setError, setLoading)
+    fetchBooks(endpoint, setState, setError, setLoading)
 
-  }, [endpoint])
+  }, [endpoint, fetchBooks])
 
   return [state, error, loading]
 }
