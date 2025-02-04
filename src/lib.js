@@ -180,7 +180,7 @@ export const saveToDB = async (dbName, storeName, data) => {
     const request = store.put(data)
 
     request.onsuccess = () => resolve()
-    request.onerror = () => reject(data.error)
+    request.onerror = () => reject(request.error)
   })
 }
 
