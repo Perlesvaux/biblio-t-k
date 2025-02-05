@@ -226,3 +226,34 @@ export function useIDB(endpoint, initialState){
 
   return [state, error, loading]
 }
+
+
+export function useYaxis(endpoint){
+  const [state, setState] = useState(0)
+
+
+  const retrieveYaxis = async()=> {
+    const response = await getFromDB('progressDB', 'progress', endpoint)
+    const data = response ? response.data : 0
+    window.scroll({
+      top:data,
+      behavior:"smooth",
+    })
+    setState(data)
+  }
+
+  const setYaxis = async() =>{
+    console.log('currently on', window.scrollY)
+    setState(window.scrollY)
+    await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
+  }
+
+  //useEffect(()=>{
+  //  const myTimeout = setTimeout ( retrieveYaxis, 2000 )
+  //  return ()=>  clearTimeout(myTimeout)
+  //}, [endpoint])
+
+  return [state, retrieveYaxis, setYaxis]
+}
+
+
