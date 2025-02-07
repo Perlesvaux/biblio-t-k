@@ -228,32 +228,80 @@ export function useIDB(endpoint, initialState){
 }
 
 
+//export function useYaxis(endpoint){
+//  const [state, setState] = useState(0)
+//  const height = Math.ceil(state/( document.body.scrollHeight-1000 )*100)
+//  const progress = (height>100)? 100 : height 
+//
+//  const retrieveYaxis = async()=> {
+//    console.log(`retrieved height ${height}, progress ${progress}, current ${document.body.scrollHeight}`)
+//    const response = await getFromDB('progressDB', 'progress', endpoint)
+//    const data = response ? response.data : 0
+//    window.scroll({
+//      top:data,
+//      behavior:"smooth",
+//    })
+//    setState(data)
+//  }
+//
+//  const setYaxis = async() =>{
+//
+//    console.log('currently on', window.scrollY)
+//    setState(window.scrollY)
+//    await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
+//  }
+//
+//  useEffect(()=>{
+//
+//    //if (ready) retrieveYaxis()
+//
+//    addEventListener('scrollend', setYaxis)
+//    return ()=> removeEventListener('scrollend', setYaxis)
+//    //addEventListener('scrollend', setYaxis)
+//    //return ()=> removeEventListener('scrollend', setYaxis)
+//  }, [endpoint])
+//
+//  return [progress, retrieveYaxis, setYaxis]
+//}
+
+
+
+
 export function useYaxis(endpoint){
-  const [state, setState] = useState(0)
+  //const [state, setState] = useState(0)
+  let current = 0;
+  let height = Math.ceil(current/( document.body.scrollHeight-1000 )*100)
+  let progress = (height>100)? 100 : height 
 
 
   const retrieveYaxis = async()=> {
+    console.log(`current:${current}, height:${height}, progress:${progress}`)
     const response = await getFromDB('progressDB', 'progress', endpoint)
-    const data = response ? response.data : 0
+    current = response ? response.data : 0
     window.scroll({
-      top:data,
+      top:current,
       behavior:"smooth",
     })
-    setState(data)
   }
 
   const setYaxis = async() =>{
-    console.log('currently on', window.scrollY)
-    setState(window.scrollY)
+    console.log('saving at:', window.scrollY)
+    current = window.scrollY
     await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
   }
 
-  //useEffect(()=>{
-  //  const myTimeout = setTimeout ( retrieveYaxis, 2000 )
-  //  return ()=>  clearTimeout(myTimeout)
-  //}, [endpoint])
+  useEffect(()=>{
 
-  return [state, retrieveYaxis, setYaxis]
+    //if (ready) retrieveYaxis()
+
+    addEventListener('scrollend', setYaxis)
+    return ()=> removeEventListener('scrollend', setYaxis)
+    //addEventListener('scrollend', setYaxis)
+    //return ()=> removeEventListener('scrollend', setYaxis)
+  }, [endpoint])
+
+  return [progress, retrieveYaxis, setYaxis]
 }
+
 
 

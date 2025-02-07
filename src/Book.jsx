@@ -11,37 +11,25 @@ import { useEffect } from 'react'
 export default function Book({ title }) {
 
   const [ book, error, loading ] = useIDB(title, {})
-  const [ _y, get_y, set_y ] = useYaxis(title)
-
+  const [ _y, get_y, set_y ] = useYaxis(title, loading, book)
 
   //useEffect(() => {
-  //  console.log('useEffect inside Book')
-  //  const _y = () =>{ console.log('it works!', window.scrollY) }
-  //  window.addEventListener('scroll', _y )
+  //  get_y()
   //
-  //  return () => {
-  //    window.removeEventListener('scroll', _y)
-  //  }
   //}, [])
-
-
+  
 
   if (error instanceof TypeError) return <div> Oh, you're off the grid. Please go back <strong>On-line</strong> (<i>{error.message}</i>) </div>
   if (error) return <div> (<i>{error.message}</i>) </div>
   if (loading) return <LoadingScreen color="red" taste="dashed" />
   if (!book) return <LoadingScreen color="blue" taste="dashed"> {console.log(book)} </LoadingScreen>
-  
 
+  
   get_y()
-    
-
-
-
-  
 
   return ( 
     <main>
-    <div className={ "bookmark buttonlike" } onClick={set_y}> <img src={bookmark} /> </div>
+    <div className={ "bookmark buttonlike" } onClick={set_y}> <img src={bookmark} /> {_y}% </div>
 
       <h1>{book.title}</h1>
 
