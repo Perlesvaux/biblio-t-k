@@ -292,10 +292,31 @@ export function useYaxis(endpoint){
 
   useEffect(()=>{
 
-    //if (ready) retrieveYaxis()
+    let timeoutId;
 
-    addEventListener('scrollend', setYaxis)
-    return ()=> removeEventListener('scrollend', setYaxis)
+    const handleScrollEnd = () => {
+      // Clear the previous timeout if it exists
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+
+      // Set a new timeout to call setYaxis after 1 second of inactivity
+      timeoutId = setTimeout(() => {
+        setYaxis();
+      }, 1000); // 1000ms = 1 second
+    };
+
+    // Add the event listener for 'scroll'
+    window.addEventListener('scroll', handleScrollEnd);
+
+    // Cleanup function to remove the event listener and clear the timeout
+    return () => {
+      window.removeEventListener('scroll', handleScrollEnd);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+
     //addEventListener('scrollend', setYaxis)
     //return ()=> removeEventListener('scrollend', setYaxis)
   }, [endpoint])
