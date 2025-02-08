@@ -267,6 +267,33 @@ export function useIDB(endpoint, initialState){
 
 
 
+export const useProgress = () => {
+  const [state, setState] = useState(0)
+  useEffect(()=>{
+
+    let timeoutId;
+
+    const yScanner = () => {
+      if (timeoutId) clearTimeout(timeoutId)
+
+      console.log('inside useProgress')
+
+      timeoutId = setTimeout(() => {
+        setState(Math.ceil(window.scrollY/(document.body.scrollHeight-932)*100))
+      }, 1000);
+    }
+
+    addEventListener('scroll', yScanner)
+    return ()=> { 
+      removeEventListener('scroll', yScanner) 
+      clearTimeout(timeoutId)
+    }
+  }, [])
+
+  return state
+}
+
+
 export function useYaxis(endpoint){
   //const [state, setState] = useState(0)
   let current = 0;
@@ -280,7 +307,7 @@ export function useYaxis(endpoint){
     current = response ? response.data : 0
     window.scroll({
       top:current,
-      behavior:"smooth",
+      //behavior:"smooth",
     })
   }
 
@@ -299,6 +326,7 @@ export function useYaxis(endpoint){
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
+      console.log('it\'s happening')
 
       // Set a new timeout to call setYaxis after 1 second of inactivity
       timeoutId = setTimeout(() => {
@@ -321,7 +349,7 @@ export function useYaxis(endpoint){
     //return ()=> removeEventListener('scrollend', setYaxis)
   }, [endpoint])
 
-  return [progress, retrieveYaxis, setYaxis]
+  return retrieveYaxis
 }
 
 

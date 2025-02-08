@@ -4,19 +4,22 @@ import footprints from './assets/footprints.svg'
 import bookmark from './assets/bookmark.svg'
 import LoadingScreen from './LoadingScreen.jsx'
 import AsideMenu from './AsideMenu.jsx'
+import Progress from './Progress.jsx'
 import './Book.css'
-import { useIDB, useYaxis } from './lib.js'
+import { useIDB, useYaxis, useProgress } from './lib.js'
 import { useEffect } from 'react'
 
 export default function Book({ title }) {
 
   const [ book, error, loading ] = useIDB(title, {})
-  const [ _y, get_y, set_y ] = useYaxis(title, loading, book)
+  const loadBookmark = useYaxis(title)
+  //const _y = useProgress()
 
   //useEffect(() => {
   //  get_y()
   //
   //}, [])
+    //<div className={ "bookmark buttonlike" } <img src={bookmark} /> {_y}% </div>
   
 
   if (error instanceof TypeError) return <div> Oh, you're off the grid. Please go back <strong>On-line</strong> (<i>{error.message}</i>) </div>
@@ -25,11 +28,11 @@ export default function Book({ title }) {
   if (!book) return <LoadingScreen color="blue" taste="dashed"> {console.log(book)} </LoadingScreen>
 
   
-  get_y()
+  loadBookmark()
 
   return ( 
     <main>
-    <div className={ "bookmark buttonlike" } onClick={set_y}> <img src={bookmark} /> {_y}% </div>
+      <Progress />
 
       <h1>{book.title}</h1>
 
