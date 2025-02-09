@@ -335,20 +335,23 @@ export function useYaxis(endpoint, book){
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      console.log('it\'s happening')
+      //console.log('it\'s happening', ref.current.scrollHeight)
+      //if (ref.current == null) console.log('ref is null')
+      
+      if (!ref.current) return
 
       // Set a new timeout to call setYaxis after 1 second of inactivity
       timeoutId = setTimeout(() => {
         setYaxis();
-      }, 1000); // 1000ms = 1 second
+      }, 400); // 1000ms = 1 second
     };
 
     // Add the event listener for 'scroll'
-    window.addEventListener('scroll', handleScrollEnd);
+    addEventListener('scroll', handleScrollEnd);
 
     // Cleanup function to remove the event listener and clear the timeout
     return () => {
-      window.removeEventListener('scroll', handleScrollEnd);
+      removeEventListener('scroll', handleScrollEnd);
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
