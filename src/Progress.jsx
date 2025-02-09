@@ -5,7 +5,7 @@ import bookmark from './assets/bookmark.svg'
 import { useEffect, useState } from 'react'
 
 export default function Progress () {
-  const progress = useProgress()
+  const [ progress, ref ] = useProgress()
 
   const [loading, setLoading] = useState(false)
 
@@ -44,5 +44,5 @@ export default function Progress () {
   
 
 
-  return <div className={ "progress buttonlike" }> {progress}% </div>
+  return <div ref={ref} className={ "progress buttonlike" }> {progress}% </div>
 }

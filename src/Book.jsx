@@ -12,14 +12,15 @@ import { useEffect } from 'react'
 export default function Book({ title }) {
 
   const [ book, error, loading ] = useIDB(title, {})
-  const loadBookmark = useYaxis(title)
-  //const _y = useProgress()
+  const [ loadBookmark, ref, isReady ] = useYaxis(title, book)
+  //const [ _y, ref ] = useProgress()
 
   //useEffect(() => {
   //  get_y()
   //
   //}, [])
     //<div className={ "bookmark buttonlike" } <img src={bookmark} /> {_y}% </div>
+  
   
 
   if (error instanceof TypeError) return <div> Oh, you're off the grid. Please go back <strong>On-line</strong> (<i>{error.message}</i>) </div>
@@ -28,11 +29,12 @@ export default function Book({ title }) {
   if (!book) return <LoadingScreen color="blue" taste="dashed"> {console.log(book)} </LoadingScreen>
 
   
-  loadBookmark()
+  //isReady()  
+  //loadBookmark()
 
   return ( 
-    <main>
-      <Progress />
+    <main ref={ref}>
+      <div  className={ "progress buttonlike" }> 0% </div>
 
       <h1>{book.title}</h1>
 

@@ -100,7 +100,7 @@ export function romans(number){
 }
 
 
-import {useState, useEffect } from 'react'
+import {useState, useEffect, useRef } from 'react'
 
 export function useLocalStorage(key, initialState){
   const [value, setValue] = useState(()=>{
@@ -268,19 +268,22 @@ export function useIDB(endpoint, initialState){
 
 
 export const useProgress = () => {
+  const ref = useRef(null)
   const [state, setState] = useState(0)
   useEffect(()=>{
 
+    //if (!ref.current) return 
     let timeoutId;
 
     const yScanner = () => {
-      if (timeoutId) clearTimeout(timeoutId)
+        console.log(ref.current.scrollHeight)
+        if (timeoutId) clearTimeout(timeoutId)
 
-      console.log('inside useProgress')
+        console.log('inside useProgress')
 
-      timeoutId = setTimeout(() => {
-        setState(Math.ceil(window.scrollY/(document.body.scrollHeight-932)*100))
-      }, 1000);
+        timeoutId = setTimeout(() => {
+          setState(Math.ceil(window.scrollY/(ref.current.scrollHeight)*100))
+        }, 1000);
     }
 
     addEventListener('scroll', yScanner)
@@ -290,21 +293,30 @@ export const useProgress = () => {
     }
   }, [])
 
-  return state
+  return [state, ref]
 }
 
 
-export function useYaxis(endpoint){
+export function useYaxis(endpoint, book){
+  const ref = useRef(null)
+  const isReady = () =>{
+    if (ref.current) { 
+      console.log(ref.current.offsetHeight)
+      console.log(ref.current.scrollHeight) 
+      retrieveYaxis()
+      //return ref.current.scrollHeight
+    }
+  }
   //const [state, setState] = useState(0)
-  let current = 0;
-  let height = Math.ceil(current/( document.body.scrollHeight-1000 )*100)
-  let progress = (height>100)? 100 : height 
+  //let current = 0;
+  //let height = Math.ceil(current/( ref.current.scrollHeight-1000 )*100)
+  //let progress = (height>100)? 100 : height 
 
 
   const retrieveYaxis = async()=> {
-    console.log(`current:${current}, height:${height}, progress:${progress}`)
+    //console.log(`current:${current}, height:${height}, progress:${progress}`)
     const response = await getFromDB('progressDB', 'progress', endpoint)
-    current = response ? response.data : 0
+    const current = response ? response.data : 0
     window.scroll({
       top:current,
       //behavior:"smooth",
@@ -313,11 +325,13 @@ export function useYaxis(endpoint){
 
   const setYaxis = async() =>{
     console.log('saving at:', window.scrollY)
-    current = window.scrollY
+    //current = window.scrollY
     await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
   }
 
   useEffect(()=>{
+
+    isReady()
 
     let timeoutId;
 
@@ -347,9 +361,14 @@ export function useYaxis(endpoint){
 
     //addEventListener('scrollend', setYaxis)
     //return ()=> removeEventListener('scrollend', setYaxis)
-  }, [endpoint])
+  }, [endpoint, book])
 
-  return retrieveYaxis
+
+  //useEffect(() => {
+  //  isReady()
+  //}, [book, isReady])
+
+  return [ retrieveYaxis, ref, isReady ]
 }
 
 
