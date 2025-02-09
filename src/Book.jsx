@@ -12,7 +12,7 @@ import { useEffect } from 'react'
 export default function Book({ title }) {
 
   const [ book, error, loading ] = useIDB(title, {})
-  const [ loadBookmark, ref, isReady ] = useYaxis(title, book)
+  const ref = useYaxis(title, book)
   //const [ _y, ref ] = useProgress()
 
   //useEffect(() => {

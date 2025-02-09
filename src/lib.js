@@ -299,39 +299,34 @@ export const useProgress = () => {
 
 export function useYaxis(endpoint, book){
   const ref = useRef(null)
-  const isReady = () =>{
-    if (ref.current) { 
-      console.log(ref.current.offsetHeight)
-      console.log(ref.current.scrollHeight) 
-      retrieveYaxis()
-      //return ref.current.scrollHeight
-    }
-  }
   //const [state, setState] = useState(0)
   //let current = 0;
   //let height = Math.ceil(current/( ref.current.scrollHeight-1000 )*100)
   //let progress = (height>100)? 100 : height 
 
 
-  const retrieveYaxis = async()=> {
-    //console.log(`current:${current}, height:${height}, progress:${progress}`)
-    const response = await getFromDB('progressDB', 'progress', endpoint)
-    const current = response ? response.data : 0
-    window.scroll({
-      top:current,
-      //behavior:"smooth",
-    })
-  }
 
-  const setYaxis = async() =>{
-    console.log('saving at:', window.scrollY)
-    //current = window.scrollY
-    await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
-  }
 
   useEffect(()=>{
 
-    isReady()
+    // Migthy trick: when ref.current is no longer null (i.e.: becomes an HTML object) it means the 'book' has finished loading!
+    const retrieveYaxis = async()=> {
+      if (!ref.current ) return
+      const response = await getFromDB('progressDB', 'progress', endpoint)
+      const current = response ? response.data : 0
+      window.scroll({
+        top:current,
+        //behavior:"smooth",
+      })
+    }
+
+    retrieveYaxis()
+
+    const setYaxis = async() =>{
+      console.log('saving at:', window.scrollY)
+      //current = window.scrollY
+      await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
+    }
 
     let timeoutId;
 
@@ -359,16 +354,15 @@ export function useYaxis(endpoint, book){
       }
     };
 
-    //addEventListener('scrollend', setYaxis)
-    //return ()=> removeEventListener('scrollend', setYaxis)
   }, [endpoint, book])
 
 
   //useEffect(() => {
-  //  isReady()
-  //}, [book, isReady])
+  //
+  //
+  //}, [book, endpoint])
 
-  return [ retrieveYaxis, ref, isReady ]
+  return  ref 
 }
 
 
