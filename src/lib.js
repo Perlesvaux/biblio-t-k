@@ -285,7 +285,7 @@ export const useProgress = () => {
     const isloading = setTimeout(()=>{
         dispatch({type:"ready"})
     console.log(state.loading)
-    },400)
+    },1000)
     console.log(state.loading)
 
     return ()=> clearTimeout(isloading)
