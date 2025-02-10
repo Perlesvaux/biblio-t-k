@@ -100,7 +100,7 @@ export function romans(number){
 }
 
 
-import {useState, useEffect, useRef } from 'react'
+import {useState, useEffect, useRef, useReducer } from 'react'
 
 export function useLocalStorage(key, initialState){
   const [value, setValue] = useState(()=>{
@@ -228,64 +228,49 @@ export function useIDB(endpoint, initialState){
 }
 
 
-//export function useYaxis(endpoint){
-//  const [state, setState] = useState(0)
-//  const height = Math.ceil(state/( document.body.scrollHeight-1000 )*100)
-//  const progress = (height>100)? 100 : height 
-//
-//  const retrieveYaxis = async()=> {
-//    console.log(`retrieved height ${height}, progress ${progress}, current ${document.body.scrollHeight}`)
-//    const response = await getFromDB('progressDB', 'progress', endpoint)
-//    const data = response ? response.data : 0
-//    window.scroll({
-//      top:data,
-//      behavior:"smooth",
-//    })
-//    setState(data)
-//  }
-//
-//  const setYaxis = async() =>{
-//
-//    console.log('currently on', window.scrollY)
-//    setState(window.scrollY)
-//    await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
-//  }
-//
-//  useEffect(()=>{
-//
-//    //if (ready) retrieveYaxis()
-//
-//    addEventListener('scrollend', setYaxis)
-//    return ()=> removeEventListener('scrollend', setYaxis)
-//    //addEventListener('scrollend', setYaxis)
-//    //return ()=> removeEventListener('scrollend', setYaxis)
-//  }, [endpoint])
-//
-//  return [progress, retrieveYaxis, setYaxis]
-//}
-
-
 
 
 export const useProgress = () => {
-  const ref = useRef(null)
-  const [state, setState] = useState(0)
+
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "loading":
+        return { ...state, loading: true}
+      case "ready":
+        return { ...state, loading: false}
+      case "update":
+        return { ...state, raw: window.scrollY, percent: Math.ceil(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100) }
+      default:
+        throw new Error(`action type: "${action.type}" doesn't exist!`);
+    }
+  }
+
+  const initialState = {
+    percent:0, raw:0, loading:true
+  }
+
+
+  const [ state, dispatch ] = useReducer(reducer, initialState)
+  //const [state, setState] = useState({percent:0, })
   useEffect(()=>{
+
+    console.log('inside first useEffect')
 
     //if (!ref.current) return 
     let timeoutId;
+    
 
     const yScanner = () => {
-        console.log(ref.current.scrollHeight)
-        if (timeoutId) clearTimeout(timeoutId)
+      if (timeoutId) clearTimeout(timeoutId)
 
-        console.log('inside useProgress')
+      console.log('inside useProgress')
 
-        timeoutId = setTimeout(() => {
-          setState(Math.ceil(window.scrollY/(ref.current.scrollHeight)*100))
-        }, 1000);
+      timeoutId = setTimeout(() => {
+        dispatch({type:"update"})
+      }, 400);
     }
 
+    //console.log(state.loading)
     addEventListener('scroll', yScanner)
     return ()=> { 
       removeEventListener('scroll', yScanner) 
@@ -293,7 +278,21 @@ export const useProgress = () => {
     }
   }, [])
 
-  return [state, ref]
+
+  useEffect(()=>{
+    console.log('inside second useEffect')
+    dispatch({type:"loading"})
+    const isloading = setTimeout(()=>{
+        dispatch({type:"ready"})
+    console.log(state.loading)
+    },400)
+    console.log(state.loading)
+
+    return ()=> clearTimeout(isloading)
+
+  }, [state.raw])
+
+  return [ state.percent, state.loading ]
 }
 
 
@@ -318,7 +317,7 @@ export function useYaxis(endpoint, book){
     // Used for debouncing, as triggering function after every scroll would be too expensive
     let timeoutId;
 
-    //(2) save current position after scroll event
+    // (2) save current position after scroll event
     const setYaxis = () => {
       // Clear the previous timeout if it exists
       if (timeoutId) clearTimeout(timeoutId);

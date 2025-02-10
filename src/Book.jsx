@@ -34,7 +34,7 @@ export default function Book({ title }) {
 
   return ( 
     <main ref={ref}>
-      <div  className={ "progress buttonlike" }> 0% </div>
+      <Progress book={book}/>
 
       <h1>{book.title}</h1>
 
