@@ -310,8 +310,11 @@ export function useYaxis(endpoint, book){
   useEffect(()=>{
 
     // Migthy trick: when ref.current is no longer null (i.e.: becomes an HTML object) it means the 'book' has finished loading!
+    const papyrus = ref.current
+
+    // Define functions that (1) retrieve last position saved and (2) save current position after scroll event
     const retrieveYaxis = async()=> {
-      if (!ref.current ) return
+      if (!papyrus ) return
       const response = await getFromDB('progressDB', 'progress', endpoint)
       const current = response ? response.data : 0
       window.scroll({
@@ -320,41 +323,43 @@ export function useYaxis(endpoint, book){
       })
     }
 
-    retrieveYaxis()
 
-    const setYaxis = async() =>{
-      console.log('saving at:', window.scrollY)
-      //current = window.scrollY
-      await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
-    }
+    //const setYaxis = async() =>{
+    //  console.log('saving at:', window.scrollY)
+    //  //current = window.scrollY
+    //  await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
+    //}
 
+    // Used for debouncing, as triggering function after every scroll would be too expensive
     let timeoutId;
 
-    const handleScrollEnd = () => {
+    const setYaxis = () => {
       // Clear the previous timeout if it exists
       if (timeoutId) {
         clearTimeout(timeoutId);
       }
-      //console.log('it\'s happening', ref.current.scrollHeight)
+      console.log('it\'s happening')
       //if (ref.current == null) console.log('ref is null')
       
       if (!ref.current) return
 
-      // Set a new timeout to call setYaxis after 1 second of inactivity
-      timeoutId = setTimeout(() => {
-        setYaxis();
-      }, 400); // 1000ms = 1 second
+      // Set a new timeout to call setYaxis after some inactivity
+      timeoutId = setTimeout( async () => {
+        console.log('saving at:', window.scrollY)
+        await saveToDB('progressDB', 'progress', {id:endpoint, data:window.scrollY})
+      }, 400); 
     };
 
-    // Add the event listener for 'scroll'
-    addEventListener('scroll', handleScrollEnd);
+    // (1) load last saved 'scrollY' position
+    retrieveYaxis()
+
+    // (2) Save current 'scrollY' position after every 'scroll' event
+    addEventListener('scroll', setYaxis);
 
     // Cleanup function to remove the event listener and clear the timeout
     return () => {
-      removeEventListener('scroll', handleScrollEnd);
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
+      removeEventListener('scroll', setYaxis);
+      if (timeoutId) clearTimeout(timeoutId);
     };
 
   }, [endpoint, book])
